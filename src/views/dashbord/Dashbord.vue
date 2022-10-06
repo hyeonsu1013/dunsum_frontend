@@ -368,7 +368,7 @@
                 <div class="icon">
                     <i class="fa fa-shopping-bag"></i>
                 </div>
-                <div class="num">2000</div>
+                <div class="num" @click="testUserAgent">2000</div>
                 <h3>Products</h3>
             </div>
         </div>
@@ -376,12 +376,6 @@
 </template>
 
 <script>
-export default {
-    name: 'Dashboard',
-    data(){
-        return{
-            
-        }
-    }
-}
+import DashBord from "@/views/dashbord/dashBord";
+export default DashBord;
 </script>
