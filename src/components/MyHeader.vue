@@ -11,23 +11,17 @@
         <div class="menu" id="menu">
             <div class="menu-logo">
 				<!-- <img src="../assets/about.jpg" alt=""> -->
-                <a href="http://developers.neople.co.kr" target="_blank">
+                <a :href="domain_link.dnfOpenApi" target="_blank">
                 <img src="../assets\images\dnf\neopleBIsmall.png" alt="Neople 오픈 API"/> </a>
 			</div>
             <div class="menu-name">
                 <h2>powered by neople openAPI</h2>
                 <div class="menu-name-social-icons">
-                    <a href="">
-                        <i class="fa fa-facebook"></i>
+                    <a :href="domain_link.github">
+                        <font-awesome-icon icon="fab fa-github"/>
                     </a>
-                    <a href="">
-                        <i class="fa fa-instagram"></i>
-                    </a>
-                    <a href="">
-                        <i class="fa fa-twitter"></i>
-                    </a>
-                    <a href="">
-                        <i class="fa fa-pinterest"></i>
+                    <a :href="domain_link.instagram">
+                        <font-awesome-icon icon="fab fa-instagram"/>
                     </a>
                 </div>
             </div>
@@ -37,7 +31,10 @@
                         Charactors
                     </li>
                     <li class="dropdown">
-                        <a href="#" v-on:click.prevent.stop="openDropdown()" class="dropbtn">{{currServer.serverName}} <i class="fa fa-angle-down"></i></a>
+                        <a href="#" v-on:click.prevent.stop="openDropdown()" class="dropbtn">{{currServer.serverName}}
+                            <font-awesome-icon v-if="toggleDropdown.characters" icon="fas fa-angle-up" />
+                            <font-awesome-icon v-else icon="fas fa-angle-down" />
+                        </a>
                     </li>
                     <li id="myDropdown" class="dropdown-content">
                         <a href="#">Link 1</a>
@@ -63,16 +60,27 @@
                 <h5>DUNSUM</h5>
                 <ul class="options-user">
                     <li>
-                        <a href="#" v-on:click.prevent.stop="openDropdownUser()" class="options-user-head"><i class="fa fa-user"></i></a>
-                        <ul id="myDropdownUser">
+                        <a href="#" v-on:click.prevent.stop="openDropdownUser()" class="options-user-head">
+                            <font-awesome-icon v-if="toggleDropdown.user" icon="far fa-user"/>
+                            <font-awesome-icon v-else icon="fas fa-user"/>
+                        </a>
+                        <ul v-if="userInfo == null" id="myDropdownUser">
                             <li>
-                                <a href=""><i class="fa fa-user"></i> User</a>
+                                <a @click="moveRoute('guest')"><i><font-awesome-icon icon="far fa-user"/></i> Guest Login</a>
                             </li>
                             <li>
-                                <a href=""><i class="fa fa-cogs"></i> Config</a>
+                                <a><i><font-awesome-icon icon="fas fa-sign-in-alt" /></i> Sign-in</a>
                             </li>
                             <li>
-                                <a href=""><i class="fa fa-sign-out"></i> Sign out</a>
+                                <a><i><font-awesome-icon icon="fas fa-user-plus" /></i> Sign-up</a>
+                            </li>
+                        </ul>
+                        <ul v-else id="myDropdownUser">
+                            <li>
+                                <a><i><font-awesome-icon icon="far fa-id-card"/></i> My Page</a>
+                            </li>
+                            <li>
+                                <a><i><font-awesome-icon icon="fas fa-sign-out-alt"/></i> Sign-out</a>
                             </li>
                         </ul>
                     </li>
@@ -151,19 +159,30 @@
 </template>
 
 <script>
-import dnfApi from '@/api/dnf/dnf';
-import commApi from '@/api/common/comm';
+import dnfInnrApi from '@/api/dnf/dnf';
+import dnfOtsdApi from '@/api/outside/dnf';
 
 export default {
-    name: 'Header',
+    name: 'MyHeader',
     data(){
         return{
+            userInfo : null,
             serverIdx : 0,
             servers : [],
             currServer : {
                 serverName : '',
                 serverId : '',
-            }
+            },
+            domain_link : {
+                dnfOpenApi : 'http://developers.neople.co.kr',
+                github : 'https://github.com/hyeonsu1013',
+                instagram : 'https://www.instagram.com/just_h.soo/',
+            },
+            // 목록 온/오프
+            toggleDropdown : {
+                characters : false,
+                user : false,
+            },
         }
     },
     watch: {
@@ -175,21 +194,10 @@ export default {
         },
     },
     methods:{
-        selDumy() {
-            commApi.selTest()
-            .then((res)=> {
-                console.log(res);
-            }).catch((err) => {
-                if (err.message.indexOf('Network Error') > -1) {
-                    console.error('네트워크가 원활하지 않습니다.\n잠시 후 다시 시도해주세요.');
-                    console.error(err);
-                }
-            }).finally(() => {
-            });
-        },
+        // DNF 서버 조회
         selServers() {
             let _this = this;
-            dnfApi.selDnfServers({})
+            dnfInnrApi.selDnfServers({})
             .then((res)=> {
                 if(res.status == 200){
                     _this.servers = res.data.rows;
@@ -213,7 +221,7 @@ export default {
                 characterName : '은비츠',
                 wordType : 'full',
             };
-            dnfApi.selCharacters(this.currServer.serverId, characters)
+            dnfOtsdApi.selCharacters(this.currServer.serverId, characters)
             .then((res)=> {
                 if(res.status == 200){
                     console.log(res);
@@ -229,19 +237,23 @@ export default {
             this.serverIdx = index;
         },
         openDropdown() {
+            this.toggleDropdown.characters = !this.toggleDropdown.characters;
             document.getElementById("myDropdown").classList.toggle("show");
         },
         openDropdownUser() {
+            this.toggleDropdown.user = !this.toggleDropdown.user;
             document.getElementById("myDropdownUser").classList.toggle("show");
         },
         openMenuMobile(){
             document.getElementById("menu").classList.toggle("showMenu");
             document.getElementById("sidebar").classList.toggle("showSidebar");
-        }
+        },
+        moveRoute(path) {
+            console.log('moveRoute', path);
+        },
     },
     created() {
         this.selServers();
-        this.selDumy();
     },
 }
 </script>

@@ -423,7 +423,7 @@ footer .footer-content{
   border-right: 9px solid transparent;
 }
 
-.options-user li ul li a{
+.options-user li ul li a {
   position: relative;
   padding: 8px 15px;
   height: 38px;
@@ -432,6 +432,7 @@ footer .footer-content{
   font-size: 16px;
   color: #000;
   border-bottom: 1px solid #eee;
+  cursor: pointer;
 }
 
 .options-user li ul li a:hover{
