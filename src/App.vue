@@ -9,12 +9,6 @@
 </template>
 
 <script>
-import MyHeader from './components/MyHeader';
-import Footer from './components/Footer';
-
-export default {
-    components:{
-      MyHeader, Footer
-    }
-}
+  import app from "./app";
+  export default app;
 </script>

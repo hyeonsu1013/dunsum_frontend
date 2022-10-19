@@ -72,7 +72,7 @@
                                 <a><i><font-awesome-icon icon="fas fa-sign-in-alt" /></i> Sign-in</a>
                             </li>
                             <li>
-                                <a><i><font-awesome-icon icon="fas fa-user-plus" /></i> Sign-up</a>
+                                <a @click="moveRoute('signup')"><i><font-awesome-icon icon="fas fa-user-plus" /></i> Sign-up</a>
                             </li>
                         </ul>
                         <ul v-else id="myDropdownUser">
@@ -249,6 +249,9 @@ export default {
             document.getElementById("sidebar").classList.toggle("showSidebar");
         },
         moveRoute(path) {
+            switch(path) {
+                
+            }
             console.log('moveRoute', path);
         },
     },

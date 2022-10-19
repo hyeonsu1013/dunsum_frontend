@@ -1,7 +1,7 @@
 import {overrideUserAgentUsingClientHints} from "@/utils/uach-retrofill";
 
 export default {
-  name: 'Dashboard',
+  name: 'Dashbord',
   data(){
       return{
         // UserAgent-ClientHints Data

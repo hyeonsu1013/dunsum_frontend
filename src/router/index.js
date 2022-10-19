@@ -3,20 +3,10 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    name: 'Dashboard',
-    component: () => import('../views/dashbord/Dashbord.vue')
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/common/About.vue')
-  }
-]
+const routes = [];
 
 const router = new VueRouter({
+  mode: "history",
   routes
 })
 
