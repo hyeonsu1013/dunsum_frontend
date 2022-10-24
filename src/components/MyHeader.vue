@@ -66,13 +66,16 @@
                         </a>
                         <ul v-if="userInfo == null" id="myDropdownUser">
                             <li>
-                                <a @click="moveRoute('guest')"><i><font-awesome-icon icon="far fa-user"/></i> Guest Login</a>
+                                <a @click="moveRoute('dashbord')"><i><font-awesome-icon icon="fas fa-chart-line" /></i> 대시보드</a>
                             </li>
                             <li>
-                                <a><i><font-awesome-icon icon="fas fa-sign-in-alt" /></i> Sign-in</a>
+                                <a @click="moveRoute('guest')"><i><font-awesome-icon icon="far fa-user"/></i> 로그인 (Guest)</a>
                             </li>
                             <li>
-                                <a @click="moveRoute('signup')"><i><font-awesome-icon icon="fas fa-user-plus" /></i> Sign-up</a>
+                                <a @click="moveRoute('signIn')"><i><font-awesome-icon icon="far fa-user"/></i> 로그인</a>
+                            </li>
+                            <li>
+                                <a @click="moveRoute('signUp')"><i><font-awesome-icon icon="fas fa-user-plus" /></i> 회원가입</a>
                             </li>
                         </ul>
                         <ul v-else id="myDropdownUser">
@@ -249,10 +252,34 @@ export default {
             document.getElementById("sidebar").classList.toggle("showSidebar");
         },
         moveRoute(path) {
+            let url= '/';
+            let compName = '';
+
             switch(path) {
-                
+                case 'dashbord':
+                    url = '/';
+                    break;
+                case 'guest':
+                    url = '/account';
+                    compName = '/guestin';
+                    break;
+                case 'signIn':
+                    url = '/account';
+                    compName = '/signin';
+                    break;
+                case 'signUp':
+                    url = '/account';
+                    compName = '/signup';
+                    break;
             }
-            console.log('moveRoute', path);
+
+            // 메뉴 닫기
+            this.openDropdownUser();
+            // 라우터이동
+            this.$router.push({
+                path: `${url}${compName}`,
+            });
+            
         },
     },
     created() {
