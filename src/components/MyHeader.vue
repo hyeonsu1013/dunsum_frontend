@@ -57,7 +57,7 @@
         <div class="header-top">
             <div class="header-top-content">
                 <input type="text" placeholder="Search...">
-                <h5>DUNSUM</h5>
+                <h5 class="header-top-title" @click="moveRoute('dashbord')">DUNSUM</h5>
                 <ul class="options-user">
                     <li>
                         <a href="#" v-on:click.prevent.stop="openDropdownUser()" class="options-user-head">
@@ -243,9 +243,14 @@ export default {
             this.toggleDropdown.characters = !this.toggleDropdown.characters;
             document.getElementById("myDropdown").classList.toggle("show");
         },
-        openDropdownUser() {
-            this.toggleDropdown.user = !this.toggleDropdown.user;
-            document.getElementById("myDropdownUser").classList.toggle("show");
+        openDropdownUser(close = false) {
+            if(close){
+                this.toggleDropdown.user = false;
+                document.getElementById("myDropdownUser").classList.remove("show");
+            } else {
+                this.toggleDropdown.user = !this.toggleDropdown.user;
+                document.getElementById("myDropdownUser").classList.toggle("show");
+            }
         },
         openMenuMobile(){
             document.getElementById("menu").classList.toggle("showMenu");
@@ -274,7 +279,7 @@ export default {
             }
 
             // 메뉴 닫기
-            this.openDropdownUser();
+            this.openDropdownUser(true);
             // 라우터이동
             this.$router.push({
                 path: `${url}${compName}`,
