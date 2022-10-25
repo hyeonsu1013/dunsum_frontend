@@ -1,6 +1,9 @@
 <template>
    <div>
-        <h1>GuestIn</h1>
+        <div class="main">Login</div>
+        <div>
+            <span class="mt20">Click Here!!</span>
+        </div>
     </div>
 </template>
 
@@ -8,3 +11,7 @@
 import GuestIn from "@/views/account/guestIn";
 export default GuestIn;
 </script>
+
+<style>
+@import '@/assets/css/directorys/account.css';
+</style>

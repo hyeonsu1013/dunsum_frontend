@@ -368,6 +368,10 @@ footer .footer-content{
   justify-content: space-between;
 }
 
+.header-top-title{
+  cursor: pointer;
+}
+
 .header-top-content input[type='text']{
   border: 1px solid #e2e8f5;
   background-color: #ffffff;
@@ -378,7 +382,7 @@ footer .footer-content{
 }
 
 .options-user{
-      padding-right: 25px;
+  padding-right: 25px;
   list-style: none;
 }
 
@@ -637,4 +641,16 @@ width: 5px;
 
 .menu-list::-webkit-scrollbar-thumb:hover {
 background: #99CDA9;
+}
+
+.mt0 {
+  margin-top: 0rem;
+}
+
+.mt10 {
+  margin-top: 1rem;
+}
+
+.mt20 {
+  margin-top: 2rem;
 }
