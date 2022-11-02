@@ -227,14 +227,29 @@ export default {
             dnfOtsdApi.selCharacters(this.currServer.serverId, characters)
             .then((res)=> {
                 if(res.status == 200){
-                    console.log(res);
+                    console.log('selCharacters', res);
                 }
             }).catch((err) => {
                 if (err.message.indexOf('Network Error') > -1) {
                     console.error('네트워크가 원활하지 않습니다.\n잠시 후 다시 시도해주세요.');
                     console.error(err);
                 }
+            }).finally(() => {
+                this.getCharacter();
             });
+        },
+        getCharacter() {
+            dnfOtsdApi.getCharacter(this.currServer.serverId, '71621072c54cc2a9e2acdd652315e7a8', {})
+            .then((res)=> {
+                if(res.status == 200){
+                    console.log('getCharacter', res);
+                }
+            }).catch((err) => {
+                if (err.message.indexOf('Network Error') > -1) {
+                    console.error('네트워크가 원활하지 않습니다.\n잠시 후 다시 시도해주세요.');
+                    console.error(err);
+                }
+            }).finally(() => {});
         },
         serverBtn(index) {
             this.serverIdx = index;
