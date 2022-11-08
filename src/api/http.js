@@ -18,6 +18,10 @@ let default_timeout = 600000;
 
 export default {
 
+	getAxios() {
+		return axios;
+	},
+
 	getTimeout(timeout) {
 		return timeout != null && typeof timeout == Number && timeout > 0 ?
 						timeout : default_timeout;
