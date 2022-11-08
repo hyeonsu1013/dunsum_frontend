@@ -1,155 +1,119 @@
 // Axios 구성
 
-import axios from "./index"
+import axios from "./index";
 
-let _sotrage = window.sessionStorage
-let _tokenKey = _sotrage.getItem(process.env.VUE_APP_TOKEN_KEY)
+let _sotrage = window.sessionStorage;
+let _tokenKey = _sotrage.getItem(process.env.VUE_APP_TOKEN_KEY);
 
 let defaultHeader = {
 	"Content-Type": "application/json;charset=UTF-8",
 	"Accept": "application/json",
 	"Access-Control-Allow-Origin": "*",
-	"X-AUTH-TOKEN": _tokenKey,
-	"X-SSCM-CD":process.env.VUE_APP_AUTH_KEY,
-	"X-MENU-ID": "",
-	"X-CLNT-IP": "",
-}
+	"D-AUTH-TOKEN": _tokenKey,
+	"D-CLNT-IP": "",
+};
+
+// default timeout = 10분
+let default_timeout = 600000;
 
 export default {
 
+	getTimeout(timeout) {
+		return timeout != null && typeof timeout == Number && timeout > 0 ?
+						timeout : default_timeout;
+	},
+
 	setToken(token) {
-		defaultHeader["X-AUTH-TOKEN"] = token;
-		console.log("setToken!!!")
+		defaultHeader["D-AUTH-TOKEN"] = token;
 	},
 
 	setIp(ip) {
-		defaultHeader["X-CLNT-IP"] = ip;
+		defaultHeader["D-CLNT-IP"] = ip;
 	},
 
-	setMenuId(id) {
-		defaultHeader["X-MENU-ID"] = id;
-	},
-
-	get(url, cancel = null) {
+	get(url) {
 
 		return axios.get(url, {
 			headers: {
 				...defaultHeader,
-				//"addType":"addData"
-				cancelToken : cancel != null ? cancel.token : null,
 			}
 		})
 	},
 
-	put(url, body, cancel = null) {
+	put(url, body) {
 		return axios.put(url, body, {
 			headers: defaultHeader,
-			cancelToken : cancel != null ? cancel.token : null,
 		})
 	},
 
-	post(url, body, cancel = null) {
+	
+	post(url, body, timeout) {
 		return axios.post(url, body, {
 			headers: {
 				...defaultHeader,
-				//"addType":"addData"
 			},
-			timeout: 600000, // 10분
-			cancelToken : cancel != null ? cancel.token : null,
+			timeout: this.getTimeout(timeout),
 		})
 	},
 
-	delete(url, cancel = null) {
+	delete(url) {
 		return axios.delete(url, {
 			headers: defaultHeader,
-			cancelToken : cancel != null ? cancel.token : null,
 		})
 	},
 
-	getFile(url, cancel = null) {
+	getFile(url) {
 		return axios.get(url, {
 			headers: {
 				...defaultHeader,
-				cancelToken : cancel != null ? cancel.token : null,
 				"Response-Type": 'arraybuffer'
 			}
 		})
 	},
-
-
-	postFileDn(url, body, cancel = null) {
+	
+	postFileDown(url, body, timeout) {
 		return axios.post(url, body, {
 
 			headers: {
 				...defaultHeader,
 				"Response-Type": 'arraybuffer'
-				//"addType":"addData"
-			}
-			,responseType: 'blob'
-			,timeout: 600000 // 10분
-			,cancelToken : cancel != null ? cancel.token : null
+			},
+			responseType: 'blob',
+			timeout: this.getTimeout(timeout),
 		})
 	},
 
-	postParamFileDn(url, params, cancel = null) {
+	postParamFileDown(url, params, timeout) {
 		return axios.post(url, {}, {
 
 			headers: {
 				...defaultHeader,
 				"Response-Type": 'arraybuffer'
-				//"addType":"addData"
-			}
-			,responseType: 'blob'
-			,timeout: 600000 // 10분
-			,params: params
-			,cancelToken : cancel != null ? cancel.token : null
+			},
+			responseType: 'blob',
+			timeout: this.getTimeout(timeout),
+			params: params,
 		})
 	},
 
-
-	postFile(url, body, cancel = null) {
+	postFile(url, body, timeout) {
 		return axios.post(url, body, {
 			headers: {
 				...defaultHeader,
 				"Content-Type": "multipart/form-data"
-			}
-			,timeout: 600000 // 10분
-			,cancelToken : cancel != null ? cancel.token : null
+			},
+			timeout: this.getTimeout(timeout),
 		})
 
 	},
 
-	// postFileOption(url, cancel = null) {
-	// 	let baseUrl = this.makeUrl(url);
-	// 	return {
-	// 		url: `${baseUrl}${url}`,
-	// 		headers: {
-	// 			"Accept": "application/json",
-	// 			"Access-Control-Allow-Origin": "*",
-	// 			"X-AUTH-TOKEN": defaultHeader["X-AUTH-TOKEN"]
-	// 		}
-	// 		,timeout: 600000 // 10분
-	// 		,cancelToken : cancel != null ? cancel.token : null
-	// 	}
-	// },
-
-	postParam(url, params, cancel = null) {
+	postParam(url, params, timeout) {
 		return axios.post(url, {}, {
 			headers: {
 				...defaultHeader,
-				//"addType":"addData"
 			},
-			params: params
-			,timeout: 600000 // 10분
-			,cancelToken : cancel != null ? cancel.token : null
+			params: params,
+			timeout: this.getTimeout(timeout),
 		})
 	},
-
-	// makeUrl(url){
-	// 	if(url.indexOf(process.env.VUE_APP_PJT) < 0) {
-	// 		return process.env.VUE_APP_GW_URL;
-	// 	}
-	// 	return process.env.VUE_APP_SERVER_URL;
-	// }
-
 }
