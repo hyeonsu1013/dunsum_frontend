@@ -1,7 +1,7 @@
 <template>
    <div>
         <div class="account_main_container">
-            <div class="account_main_title">Login</div>
+            <div class="account_main_title" @click="guestLogin">Login</div>
             <div class="account_main_sub_title mt40">(↑↑↑ Click Here ↑↑↑)</div>
         </div>
         <div class="account_sub_container">

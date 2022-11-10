@@ -368,7 +368,7 @@
                 <div class="icon">
                     <i class="fa fa-shopping-bag"></i>
                 </div>
-                <div class="num" @click="testUserAgent">2000</div>
+                <div class="num">2000</div>
                 <h3>Products</h3>
             </div>
         </div>

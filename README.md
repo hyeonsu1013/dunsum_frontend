@@ -16,6 +16,8 @@ npm i --save @fortawesome/free-brands-svg-icons
 npm i axios
 
 npm i vue-router@3.2.0
+
+npm i vuex@2.0.0
 ```
 
 
