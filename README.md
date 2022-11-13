@@ -18,6 +18,11 @@ npm i axios
 npm i vue-router@3.2.0
 
 npm i vuex@2.0.0
+
+npm add vuetify
+> vue2 CLI
+
+npm i --save material-design-icons-iconfont
 ```
 
 

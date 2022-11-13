@@ -25,7 +25,7 @@ export default {
           _storage.setItem(process.env.VUE_APP_TOKEN_KEY, data.userToken);
           _storage.setItem(process.env.VUE_APP_USER_DATA, JSON.stringify(sessionData));
           http.setToken(data.userToken);
-          http.setToken(data.clntIp);
+          http.setIp(data.clntIp);
           
           this.$router.push({
             path: `/`,
