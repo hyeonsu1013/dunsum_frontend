@@ -1,4 +1,5 @@
 import acutApi from '@/api/account/account';
+import http from '@/api/http';
 
 let _storage = window.sessionStorage;
 
