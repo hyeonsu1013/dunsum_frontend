@@ -1,11 +1,19 @@
 <template>
-    <div id="app">
-      <MyHeader></MyHeader>
-      <div class="main-content">
-          <router-view/>
-      </div>
-      <Footer></Footer>
-    </div>
+      <v-app id="app">
+        <MyHeader></MyHeader>
+        <v-main>
+          <v-container fluid>
+            <!-- If using vue-router -->
+            <div class="main-content">
+                <router-view/>
+            </div>
+          </v-container>
+        </v-main>
+        <!-- <div class="main-content">
+            <router-view/>
+        </div> -->
+        <Footer></Footer>
+      </v-app>
 </template>
 
 <script>

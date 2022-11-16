@@ -10,10 +10,10 @@
         </div>
         <div class="menu" id="menu">
             <div class="menu-logo">
-				<!-- <img src="../assets/about.jpg" alt=""> -->
+                <!-- <img src="../assets/about.jpg" alt=""> -->
                 <a :href="domain_link.dnfOpenApi" target="_blank">
                 <img src="../assets\images\dnf\neopleBIsmall.png" alt="Neople 오픈 API"/> </a>
-			</div>
+            </div>
             <div class="menu-name">
                 <h2>powered by neople openAPI</h2>
                 <div class="menu-name-social-icons">
@@ -46,11 +46,19 @@
                     <li class="menu-list-title"> 
                         Server
                     </li>
-                    <li class="menu-list-item-2" v-for="(server, index) in servers" :key="index" @click="serverBtn(index)">
-                        <i v-if="serverIdx == index"><font-awesome-icon icon="fas fa-star"/></i>
-                        <i v-else><font-awesome-icon icon="far fa-star"/></i>
-                        <h5>{{server.serverName}}</h5>
-                    </li>
+                    <v-list shaped>
+                        <v-list-item-group v-model="serverIdx" color="primary">
+                            <v-list-item v-for="(server, index) in servers" :key="index" @click="serverBtn(index)">
+                                <v-list-item-icon>
+                                    <v-icon v-if="serverIdx == index" v-text="'mdi-star'"></v-icon>
+                                    <v-icon v-else v-text="'mdi-star-outline'"></v-icon>
+                                </v-list-item-icon>
+                                <v-list-item-content>
+                                    <v-list-item-title v-text="server.serverName"></v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-list-item-group>
+                    </v-list>
                 </ul>
             </div>
         </div>
@@ -93,66 +101,66 @@
         <div class="sidebar-list" id="sidebar">
             <div class="sidebar-list-item">
                 <router-link to="/">
-                    <i class="fa fa-home"></i>
+                    <i><font-awesome-icon icon="fas fa-sign-out-alt"/></i>
                     <span class="tooltip">Dashboard</span>
                 </router-link>
             </div>
             <div class="sidebar-list-item">
                 <router-link to="/about">
-                    <i class="fa fa-user"></i>
+                    <i><font-awesome-icon icon="fas fa-sign-out-alt"/></i>
                     <span class="tooltip">About</span>
                 </router-link>
             </div>
             <div class="sidebar-list-item">
                 <a href="">
-                    <i class="fa fa-download"></i>
+                    <i><font-awesome-icon icon="fas fa-sign-out-alt"/></i>
                     <span class="tooltip">Download</span>
                 </a>
             </div>
             <div class="sidebar-list-item">
                 <a href="">
-                    <i class="fa fa-calendar"></i>
+                    <i><font-awesome-icon icon="fas fa-sign-out-alt"/></i>
                     <span class="tooltip">Calendar</span>
                 </a>
             </div>
             <div class="sidebar-list-item">
                 <a href="">
-                    <i class="fa fa-star"></i>
+                    <i><font-awesome-icon icon="fas fa-sign-out-alt"/></i>
                     <span class="tooltip">Star</span>
                 </a>
             </div>
             <div class="sidebar-list-item">
                 <a href="">
-                    <i class="fa fa-shopping-bag"></i>
+                    <i><font-awesome-icon icon="fas fa-sign-out-alt"/></i>
                     <span class="tooltip">Products</span>
                 </a>
             </div>
             <div class="sidebar-list-item">
                 <a href="">
-                    <i class="fa fa-clock-o"></i>
+                    <i><font-awesome-icon icon="fas fa-sign-out-alt"/></i>
                     <span class="tooltip">Time</span>
                 </a>
             </div>
             <div class="sidebar-list-item">
                 <a href="">
-                    <i class="fa fa-cogs"></i>
+                    <i><font-awesome-icon icon="fas fa-sign-out-alt"/></i>
                     <span class="tooltip">Config</span>
                 </a>
             </div>
             <div class="sidebar-list-item">
                 <a href="">
-                    <i class="fa fa-sitemap"></i>
+                    <i><font-awesome-icon icon="fas fa-sign-out-alt"/></i>
                     <span class="tooltip">Sitemap</span>
                 </a>
             </div>
             <div class="sidebar-list-item">
                 <a href="">
-                    <i class="fa fa-sign-out"></i>
+                    <i><font-awesome-icon icon="fas fa-sign-out-alt"/></i>
                     <span class="tooltip">Sign out</span>
                 </a>
             </div><div class="sidebar-list-item">
                 <a href="">
-                    <i class="fa fa-sign-out"></i>
+                    <i><font-awesome-icon icon="fas fa-sign-out-alt"/></i>
                     <span class="tooltip">Another</span>
                 </a>
             </div>
@@ -307,3 +315,7 @@ export default {
     },
 }
 </script>
+
+<style>
+/* @import '@/assets/css/directorys/account.css'; */
+</style>
