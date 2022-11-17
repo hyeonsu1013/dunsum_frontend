@@ -1,0 +1,181 @@
+<template>
+  <div>
+    <v-navigation-drawer class="nav" v-model="drawer" :mini-variant.sync="mini" permanent>
+      <v-list-item class="px-2">
+        <v-list-item-avatar>
+          <v-img src="../assets/logo.png"></v-img>
+        </v-list-item-avatar>
+        <div class="nav-mobile">
+            <i class="fa fa-bars" v-on:click="openMenuMobile()"></i>  
+        </div>
+
+        <v-list-item-title>Javayaji's DNF</v-list-item-title>
+
+        <v-btn icon @click.stop="mini = !mini">
+          <v-icon>mdi-chevron-left</v-icon>
+        </v-btn>
+      </v-list-item>
+      
+      <v-divider></v-divider>
+
+      <v-list dense>
+        <v-list-item v-for="item in items" :key="item.title" link>
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <div class="menu" id="menu">
+      <div class="menu-logo">
+          <a :href="domain_link.dnfOpenApi" target="_blank">
+          <img src="../assets\images\dnf\neopleBIsmall.png" alt="Neople 오픈 API"/> </a>
+      </div>
+      <div class="menu-name">
+          <h2>powered by neople openAPI</h2>
+          <div class="menu-name-social-icons">
+              <a :href="domain_link.github">
+                  <font-awesome-icon icon="fab fa-github"/>
+              </a>
+              <a :href="domain_link.instagram">
+                  <font-awesome-icon icon="fab fa-instagram"/>
+              </a>
+          </div>
+      </div>
+      <div class="menu-list">
+        <ul>
+          <li class="menu-list-title"> 
+              Server
+          </li>
+          <v-list>
+            <v-list-group color="primary" v-model="toggleDropdown.server">
+              <template v-slot:activator>
+                <v-list-item-content>
+                  <v-list-item-title>{{currServer.serverName}}</v-list-item-title>
+                </v-list-item-content>
+              </template>
+              <v-list-item-group v-model="serverIdx" color="primary">
+                <v-list-item v-for="(server, index) in servers" :key="'s'+index" link @click="serverBtn(index)">
+                  <v-list-item-title v-text="server.serverName"></v-list-item-title>
+
+                  <v-list-item-icon>
+                    <!-- <v-icon v-text="charId"></v-icon> -->
+                  </v-list-item-icon>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list-group>
+          </v-list>
+        </ul>
+        <ul>
+          <li class="menu-list-title"> 
+              Characters
+          </li>
+          <v-list shaped>
+              <v-list-item-group v-model="characterIdx" color="primary">
+                  <v-list-item v-for="(character, index) in characters" :key="'c'+index" @click="characterBtn(index)">
+                      <v-list-item-icon>
+                          <v-icon v-if="characterIdx == index" v-text="'mdi-star'"></v-icon>
+                          <v-icon v-else v-text="'mdi-star-outline'"></v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>
+                          <v-list-item-title v-text="character.charName"></v-list-item-title>
+                      </v-list-item-content>
+                  </v-list-item>
+              </v-list-item-group>
+          </v-list>
+        </ul>
+    </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data () {
+      return {
+        drawer: true,
+        items: [
+          { title: 'Home', icon: 'mdi-home-city' },
+          { title: 'My Account', icon: 'mdi-account' },
+          { title: 'Users', icon: 'mdi-account-group-outline' },
+        ],
+        mini: true,
+        domain_link : {
+            dnfOpenApi : 'http://developers.neople.co.kr',
+            github : 'https://github.com/hyeonsu1013',
+            instagram : 'https://www.instagram.com/just_h.soo/',
+        },
+        // 목록 온/오프
+        toggleDropdown : {
+            characters : false,
+            user : false,
+            server : false,
+        },
+        currServer : {serverName: '1번서버', serverId: '1'},
+        currCharacter : {charName: '《전체》', charId: '0'},
+        userInfo : null,
+        serverIdx : 0,
+        characterIdx : 0,
+        characters : [
+          {charName: '《전체》', charId: '0'},
+          {charName: '1번캐릭터', charId: '1'},
+          {charName: '2번캐릭터', charId: '2'},
+          {charName: '3번캐릭터', charId: '3'},
+          {charName: '4번캐릭터', charId: '4'},
+          {charName: '5번캐릭터', charId: '5'},
+          {charName: '6번캐릭터', charId: '6'},
+        ],
+        servers : [
+          {serverName: '1번서버', serverId: '1'},
+          {serverName: '2번서버', serverId: '2'},
+          {serverName: '3번서버', serverId: '3'},
+          {serverName: '4번서버', serverId: '4'},
+          {serverName: '5번서버', serverId: '5'},
+          {serverName: '6번서버', serverId: '6'},
+          {serverName: '7번서버', serverId: '7'},
+          {serverName: '8번서버', serverId: '8'},
+        ],
+      }
+    },
+    watch: {
+        serverIdx(v) {
+          if(this.servers.length > v) {
+              this.currServer.serverName = this.servers[v].serverName;
+              this.currServer.serverId = this.servers[v].serverId;
+          }
+        },
+        characterIdx(v) {
+          if(this.characters.length > v) {
+              this.currCharacter.charName = this.characters[v].charName;
+              this.currCharacter.charId = this.characters[v].charId;
+          }
+        },
+    },
+    methods: {
+      serverBtn(index) {
+        this.serverIdx = index;
+        this.toggleDropdown.server = false;
+      },
+      characterBtn(index) {
+        this.characterIdx = index;
+      },
+      openMenuMobile(){
+          document.getElementById("menu").classList.toggle("showMenu");
+          document.getElementById("sidebar").classList.toggle("showSidebar");
+      },
+      openDropdown() {
+          this.toggleDropdown.characters = !this.toggleDropdown.characters;
+          document.getElementById("myDropdown").classList.toggle("show");
+      },
+    },
+  }
+</script>
+
+
+<style>
+@import '@/assets/css/components/header.css';
+</style>

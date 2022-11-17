@@ -28,7 +28,7 @@
             <div class="menu-list">
                 <ul>
                     <li class="menu-list-title"> 
-                        Charactors
+                        Characters
                     </li>
                     <li class="dropdown">
                         <a href="#" v-on:click.prevent.stop="openDropdown()" class="dropbtn">{{currServer.serverName}}
@@ -315,7 +315,3 @@ export default {
     },
 }
 </script>
-
-<style>
-/* @import '@/assets/css/directorys/account.css'; */
-</style>

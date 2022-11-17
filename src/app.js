@@ -3,7 +3,7 @@ import router from "@/router/index";
 import menu from "./views/menu";
 import {overrideUserAgentUsingClientHints} from "@/utils/uach-retrofill";
 
-
+const DunsumHeader = () => import(/* webpackChunkName: "DunsumHeader" */  '@/components/DunsumHeader.vue');
 const MyHeader = () => import(/* webpackChunkName: "MyHeader" */  '@/components/MyHeader.vue');
 const Footer = () => import(/* webpackChunkName: "Footer" */  '@/components/Footer.vue');
 
@@ -16,7 +16,7 @@ function loadView(path, view) {
 export default {
   name: "App",
   components:{
-    MyHeader, Footer
+    MyHeader, Footer, DunsumHeader
   },
   data() {
     return {

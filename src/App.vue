@@ -1,6 +1,6 @@
 <template>
       <v-app id="app">
-        <MyHeader></MyHeader>
+        <dunsum-header></dunsum-header>
         <v-main>
           <v-container fluid>
             <!-- If using vue-router -->
