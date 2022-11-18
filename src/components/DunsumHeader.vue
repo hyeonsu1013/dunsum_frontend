@@ -1,11 +1,12 @@
 <template>
   <div>
-    <v-navigation-drawer class="nav" v-model="drawer" :mini-variant.sync="mini" permanent>
+    <!-- S: 좌측 네비게이션 -->
+    <v-navigation-drawer class="header_nav" v-model="drawer" :mini-variant.sync="mini" permanent>
       <v-list-item class="px-2">
         <v-list-item-avatar>
           <v-img src="../assets/logo.png"></v-img>
         </v-list-item-avatar>
-        <div class="nav-mobile">
+        <div class="header_nav_mobile">
             <i class="fa fa-bars" v-on:click="openMenuMobile()"></i>  
         </div>
 
@@ -29,29 +30,32 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+    <!-- E: 좌측 네비게이션 -->
 
-    <div class="menu" id="menu">
-      <div class="menu-logo">
+    <!-- S: 좌측 메뉴목록 -->
+    <div class="header_menu" id="header_menu">
+      <div class="logo">
           <a :href="domain_link.dnfOpenApi" target="_blank">
           <img src="../assets\images\dnf\neopleBIsmall.png" alt="Neople 오픈 API"/> </a>
       </div>
-      <div class="menu-name">
+      <div class="name">
           <h2>powered by neople openAPI</h2>
-          <div class="menu-name-social-icons">
-              <a :href="domain_link.github">
+          <div class="social_icons">
+              <a :href="domain_link.github" target="_blank">
                   <font-awesome-icon icon="fab fa-github"/>
               </a>
-              <a :href="domain_link.instagram">
+              <a :href="domain_link.instagram" target="_blank">
                   <font-awesome-icon icon="fab fa-instagram"/>
               </a>
           </div>
       </div>
-      <div class="menu-list">
+
+      <div class="header_menu_list">
         <ul>
-          <li class="menu-list-title"> 
-              Server
+          <li class="title"> 
+              Servers
           </li>
-          <v-list>
+          <v-list class="list">
             <v-list-group color="primary" v-model="toggleDropdown.server">
               <template v-slot:activator>
                 <v-list-item-content>
@@ -60,7 +64,7 @@
               </template>
               <v-list-item-group v-model="serverIdx" color="primary">
                 <v-list-item v-for="(server, index) in servers" :key="'s'+index" link @click="serverBtn(index)">
-                  <v-list-item-title v-text="server.serverName"></v-list-item-title>
+                  <v-list-item-title class="item_title" v-text="server.serverName"></v-list-item-title>
 
                   <v-list-item-icon>
                     <!-- <v-icon v-text="charId"></v-icon> -->
@@ -71,25 +75,26 @@
           </v-list>
         </ul>
         <ul>
-          <li class="menu-list-title"> 
+          <li class="title"> 
               Characters
           </li>
           <v-list shaped>
-              <v-list-item-group v-model="characterIdx" color="primary">
-                  <v-list-item v-for="(character, index) in characters" :key="'c'+index" @click="characterBtn(index)">
-                      <v-list-item-icon>
-                          <v-icon v-if="characterIdx == index" v-text="'mdi-star'"></v-icon>
-                          <v-icon v-else v-text="'mdi-star-outline'"></v-icon>
-                      </v-list-item-icon>
-                      <v-list-item-content>
-                          <v-list-item-title v-text="character.charName"></v-list-item-title>
-                      </v-list-item-content>
-                  </v-list-item>
-              </v-list-item-group>
+            <v-list-item-group v-model="characterIdx" color="primary">
+                <v-list-item v-for="(character, index) in characters" :key="'c'+index" @click="characterBtn(index)">
+                    <v-list-item-icon>
+                        <v-icon v-if="characterIdx == index" v-text="'mdi-star'"></v-icon>
+                        <v-icon v-else v-text="'mdi-star-outline'"></v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title v-text="character.charName"></v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-list-item-group>
           </v-list>
         </ul>
+      </div>
     </div>
-    </div>
+    <!-- E: 좌측 메뉴목록 -->
   </div>
 </template>
 
