@@ -1,18 +1,14 @@
 <template>
       <v-app id="app">
-        <dunsum-header></dunsum-header>
+        <DunsumHeader/>
         <v-main>
-          <v-container fluid>
-            <!-- If using vue-router -->
-            <div class="main-content">
-                <router-view/>
-            </div>
-          </v-container>
+          <div class="main-content">
+              <router-view/>
+          </div>
+          <Footer></Footer>
         </v-main>
-        <!-- <div class="main-content">
-            <router-view/>
-        </div> -->
-        <Footer></Footer>
+        
+              
       </v-app>
 </template>
 

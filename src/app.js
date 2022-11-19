@@ -16,7 +16,7 @@ function loadView(path, view) {
 export default {
   name: "App",
   components:{
-    MyHeader, Footer, DunsumHeader
+    MyHeader, Footer, DunsumHeader,
   },
   data() {
     return {
@@ -24,8 +24,17 @@ export default {
       ovUserAgnet : "",
       userAgentHints : ["architecture","bitness","model","platformVersion","uaFullVersion","wow64"],
       isMobl : false,
+      windowWidth : window.innerWidth,
+      windowHeight : window.innerHeight,
     }
   },
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.handleResize);
+  },
+  watch : {},
   methods: {
     // UserAgent-ClientHints
     setUserAgnet() {
@@ -72,6 +81,12 @@ export default {
         router.addRoute(e);
       })
     },
+
+    // 화면 크기 변경 감지
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+      this.windowHeight = window.innerHeight;
+    }
   },
   
   created() {

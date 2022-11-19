@@ -95,6 +95,28 @@
       </div>
     </div>
     <!-- E: 좌측 메뉴목록 -->
+
+    <!-- S: 상단 메뉴바 -->
+    <v-app-bar class="header_appbar" elevate-on-scroll>
+      <div class="contents"> 
+        <v-toolbar-title class="title">DUNSUM</v-toolbar-title>
+
+        <v-spacer></v-spacer>
+
+        <v-btn icon>
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
+
+        <v-btn icon>
+          <v-icon>mdi-heart</v-icon>
+        </v-btn>
+
+        <v-btn icon>
+          <v-icon>mdi-dots-vertical</v-icon>
+        </v-btn>
+      </div>
+    </v-app-bar>
+    <!-- E: 상단 메뉴바 -->
   </div>
 </template>
 

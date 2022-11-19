@@ -1,4 +1,11 @@
 /**
+ * serarch List
+ - search_nav
+ - search_menu
+ - search_appbar
+ */
+
+/**
  * search_nav
  */
 
@@ -153,7 +160,7 @@
   }
   
 .header_menu_list::-webkit-scrollbar-track {
-  background-color: #f4f4f4;
+  background-color: #fff;
 }
 
 .header_menu_list::-webkit-scrollbar-thumb {
@@ -161,5 +168,31 @@
 }
 
 .header_menu_list::-webkit-scrollbar-thumb:hover {
-background: #99CDA9;
+  background: #99CDA9;
 }
+
+/**
+ * search_appbar
+ */
+
+ .header_appbar {
+    position: fixed !important;
+    top: 0 !important;
+    background-color: #f0fff4 !important;
+    width: 100%;
+    padding-left: 311px;
+    z-index: 1;
+    transition: all .2s ease;
+ }
+
+ .header_appbar .contents {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+ .header_appbar .title {
+    cursor: pointer;
+ }
