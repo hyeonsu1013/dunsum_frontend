@@ -18,6 +18,10 @@ npm i axios
 npm i vue-router@3.2.0
 
 npm i vuex@2.0.0
+
+npm i sass
+npm i sass-loader@10
+npm i sass-loader
 ```
 
 
@@ -31,3 +35,14 @@ npm install
 npm run serve
 ```
 
+
+# TODO
+
+### Design
+1. css > scss 변환 작업
+2. scss 전역 변수 파일 생성 및 작업
+3. scss 전역 import
+4. 전체 컴포넌트 색 조정
+
+### 기능
+1. 캐릭터 검색 화면 추가
