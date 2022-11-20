@@ -97,23 +97,46 @@
     <!-- E: 좌측 메뉴목록 -->
 
     <!-- S: 상단 메뉴바 -->
-    <v-app-bar class="header_appbar" elevate-on-scroll>
-      <div class="contents"> 
-        <v-toolbar-title class="title">DUNSUM</v-toolbar-title>
+    <v-app-bar class="header_appbar" elevate-on-scroll height="80">
+      <div class="contents">
+        <v-toolbar-title class="title">
+          <div class="wrapper">
+            <div class="focus">
+              DUNSUM
+            </div>
+            <div class="mask">
+              <div class="text">DUNSUM</div>
+            </div>
+          </div>
+        </v-toolbar-title>
 
         <v-spacer></v-spacer>
+        <div class="searchbox">
+          <v-text-field v-model="message4" label="캐릭터 검색" outlined clearable rounded hide-details="true"></v-text-field>
+        </div>
+        
 
         <v-btn icon>
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
+        <v-menu bottom left :offset-y="true" transition="slide-y-transition">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn icon color="black" v-bind="attrs" v-on="on">
+              <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+          </template>
 
-        <v-btn icon>
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
-
-        <v-btn icon>
-          <v-icon>mdi-dots-vertical</v-icon>
-        </v-btn>
+          <v-list flat>
+            <v-list-item v-for="(menu, i) in topMenuNonList" :key="i" @click="moveRoute(menu.moveUrl)">
+              <v-list-item-icon>
+                <v-icon>{{menu.icon}}</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title v-text="menu.title"/>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </div>
     </v-app-bar>
     <!-- E: 상단 메뉴바 -->
@@ -142,6 +165,29 @@
             user : false,
             server : false,
         },
+        topMenuNonList : [
+          {
+            title: '대시보드',
+            icon : 'mdi-format-list-bulleted-square',
+            moveUrl : '/',
+          },
+          {
+            title: '로그인 (Guest)',
+            icon : 'mdi-account-outline',
+            moveUrl : '/account/guestin',
+          },
+          {
+            title: '로그인',
+            icon : 'mdi-account',
+            moveUrl : '/account/signin',
+          },
+          {
+            title: '회원가입',
+            icon : 'mdi-account-plus',
+            moveUrl : '/account/signup',
+          },
+
+        ],
         currServer : {serverName: '1번서버', serverId: '1'},
         currCharacter : {charName: '《전체》', charId: '0'},
         userInfo : null,
@@ -194,15 +240,19 @@
           document.getElementById("menu").classList.toggle("showMenu");
           document.getElementById("sidebar").classList.toggle("showSidebar");
       },
-      openDropdown() {
-          this.toggleDropdown.characters = !this.toggleDropdown.characters;
-          document.getElementById("myDropdown").classList.toggle("show");
-      },
+      moveRoute(path) {
+            // 메뉴 닫기
+            // this.openDropdownUser(true);
+            // 라우터이동
+            this.$router.push({
+                path: path,
+            });
+        },
     },
   }
 </script>
 
 
-<style>
-@import '@/assets/css/components/header.css';
+<style lang="scss">
+@import '@/assets/scss/components/header.scss';
 </style>

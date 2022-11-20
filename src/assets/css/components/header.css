@@ -196,3 +196,11 @@
  .header_appbar .title {
     cursor: pointer;
  }
+
+ .header_appbar .searchbox {
+    width: 200px;
+    height: 64px;
+    margin: 0;
+    padding-top: 3px;
+    align-items: center;
+}

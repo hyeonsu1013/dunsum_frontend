@@ -5,6 +5,7 @@ module.exports = defineConfig({
   ],
   lintOnSave:false,
   devServer: {
+    host: 'dunsum-local.kr',
     proxy: {
       '/df':{
         "target":'https://api.neople.co.kr',
