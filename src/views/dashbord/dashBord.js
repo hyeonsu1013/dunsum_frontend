@@ -5,6 +5,7 @@ export default {
       }
   },
   created() {
+    // this._preventBack();
   },
   methods: {
   }

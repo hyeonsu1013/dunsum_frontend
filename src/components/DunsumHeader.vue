@@ -99,7 +99,7 @@
     <!-- S: 상단 메뉴바 -->
     <v-app-bar class="header_appbar" elevate-on-scroll height="80">
       <div class="contents">
-        <v-toolbar-title class="title">
+        <v-toolbar-title class="title" @click="moveRoute('/')">
           <div class="wrapper">
             <div class="focus">
               DUNSUM
@@ -112,7 +112,7 @@
 
         <v-spacer></v-spacer>
         <div class="searchbox">
-          <v-text-field v-model="message4" label="캐릭터 검색" background-color="white" color="brown lighten-1"
+          <v-text-field v-model="serachText" label="캐릭터 검색" background-color="white" color="brown lighten-1"
                         outlined clearable rounded hide-details="true"></v-text-field>
         </div>
         
@@ -194,6 +194,8 @@
         userInfo : null,
         serverIdx : 0,
         characterIdx : 0,
+
+        serachText: '',
         characters : [
           {charName: '《전체》', charId: '0'},
           {charName: '1번캐릭터', charId: '1'},
