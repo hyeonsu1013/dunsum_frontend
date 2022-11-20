@@ -2,7 +2,7 @@
     <div>
         <div class="nav">
             <a href="#" class="nav-logo">
-                <img src="../assets/logo.png" alt="">
+                <img src="../assets/images/vue/logo.png" alt="">
             </a>
             <div class="nav-mobile">
                 <i class="fa fa-bars" v-on:click="openMenuMobile()"></i>  

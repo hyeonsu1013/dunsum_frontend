@@ -4,7 +4,7 @@
     <v-navigation-drawer class="header_nav" v-model="drawer" :mini-variant.sync="mini" permanent>
       <v-list-item class="px-2">
         <v-list-item-avatar>
-          <v-img src="../assets/logo.png"></v-img>
+          <v-img src="../assets/images/vue/logo.png"></v-img>
         </v-list-item-avatar>
         <div class="header_nav_mobile">
             <i class="fa fa-bars" v-on:click="openMenuMobile()"></i>  
@@ -112,7 +112,8 @@
 
         <v-spacer></v-spacer>
         <div class="searchbox">
-          <v-text-field v-model="message4" label="캐릭터 검색" outlined clearable rounded hide-details="true"></v-text-field>
+          <v-text-field v-model="message4" label="캐릭터 검색" background-color="white" color="brown lighten-1"
+                        outlined clearable rounded hide-details="true"></v-text-field>
         </div>
         
 
@@ -251,8 +252,3 @@
     },
   }
 </script>
-
-
-<style lang="scss">
-@import '@/assets/scss/components/header.scss';
-</style>

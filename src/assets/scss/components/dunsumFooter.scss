@@ -1,0 +1,15 @@
+footer {
+  width: 100%;
+  background-color: #fff;
+  text-align: center;
+
+  .footer-content {
+    margin-left: 337px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  footer .footer-content {
+    margin-left: 0;
+  }
+}

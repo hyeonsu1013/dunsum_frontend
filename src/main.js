@@ -9,8 +9,8 @@ import { dataStore } from '@/store/dataStore'
 import "@/utils/fontAwesomeIcon.js";
 
 import './assets/style.css';
-import './assets/dunsum.css';
-import vuetify from './plugins/vuetify'
+import './assets/scss/dunsum.scss';
+import vuetify from './plugins/vuetify';
 
 axios.defaults.baseURL = process.env.VUE_APP_SERVER_URL;
 Vue.config.productionTip = false

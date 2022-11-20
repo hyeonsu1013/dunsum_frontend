@@ -4,6 +4,15 @@ module.exports = defineConfig({
     'vuetify'
   ],
   lintOnSave:false,
+  css : {
+    loaderOptions: {
+      scss: {
+        additionalData: `
+          @import "@/assets/scss/variables.scss";
+        `,
+      },
+    },
+  },
   devServer: {
     host: 'dunsum-local.kr',
     proxy: {

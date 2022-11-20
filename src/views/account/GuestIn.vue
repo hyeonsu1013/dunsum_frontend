@@ -22,7 +22,3 @@
 import GuestIn from "@/views/account/guestIn";
 export default GuestIn;
 </script>
-
-<style>
-@import '@/assets/css/directorys/account.css';
-</style>

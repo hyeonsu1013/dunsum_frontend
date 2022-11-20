@@ -1,0 +1,28 @@
+/*
+ common
+*/
+
+.main-content{
+  padding: 80px 0 0 311px;
+  margin: 30px 15px 15px 15px;
+  min-height: 600px;
+  /* background-color: #f1fdf3; */
+}
+@media only screen and (max-width: 768px) {
+    .main-content{
+        margin-left: 0;    
+    }
+}
+
+.fred { color: #ff2222; }
+.fblue { color: #4322ff; }
+
+.fbold { font-weight: bold; }
+
+.mt0 { margin-top: 0px; }
+.mt5 { margin-top: 5px; }
+.mt10 { margin-top: 10px; }
+.mt15 { margin-top: 15px; }
+.mt20 { margin-top: 20px; }
+.mt25 { margin-top: 25px; }
+.mt30 { margin-top: 30px; }

@@ -5,10 +5,8 @@
           <div class="main-content">
               <router-view/>
           </div>
-          <Footer></Footer>
+          <DunsumFooter/>
         </v-main>
-        
-              
       </v-app>
 </template>
 
