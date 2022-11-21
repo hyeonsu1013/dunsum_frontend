@@ -1,5 +1,39 @@
 # frontend
 
+# 주요기능
+* Vuetify Project
+>
+
+* 좌측 고정 Navigation
+  1. Bar_1 : 간편 메뉴이동 (확장/축소 기능 적용)
+  2. Bar_2 : 선택 값에 따른 router Data 조회 조건 변경 : Global Param 역할
+>
+
+* 상단 고정 Appbar
+  1. 캐릭터 검색 / 아이템 검색 지원
+  2. Title : Title 효과와 Main 화면 바로가기 적용
+  3. 계정 관리 메뉴 추가
+      * 로그아웃 상태 : 메인화면
+      * 로그아웃 상태 : 게스트로그인
+      * 로그아웃 상태 : 일반로그인
+      * 로그아웃 상태 : 회원가입
+      * 로그인 상태 : 메인화면
+      * 로그인 상태 : 마이페이지
+      * 로그인 상태 : 로그아웃
+>
+
+* router-view 적용
+  1. views 목록
+      * 추가예정
+      * 추가예정
+      * 추가예정
+  2. router error Handling 적용
+>
+
+* vuex store 적용
+  1. gobal 변수
+      * login 여부 확인
+
 ## user Agnet Client Hint 도입
 ```
 uach-retrofill.js - Copyright 2020 Google LLC
