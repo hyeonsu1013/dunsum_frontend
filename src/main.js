@@ -7,7 +7,7 @@ import axios from 'axios'
 import mixin from "./assets/js/mixin"
 
 // Vuex
-import { dataStore } from '@/store/dataStore'
+import { store } from '@/store/store'
 
 import "@/utils/fontAwesomeIcon.js";
 
@@ -23,7 +23,7 @@ Vue.mixin(mixin);
 
 new Vue({
   router,
-  store: dataStore,
+  store: store,
   vuetify,
   render: h => h(App)
 }).$mount('#app')

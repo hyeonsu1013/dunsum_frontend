@@ -114,8 +114,7 @@
         <div class="searchbox">
           <v-text-field v-model="serachText" label="캐릭터 검색" background-color="white" color="brown lighten-1"
                         outlined clearable rounded hide-details="true"></v-text-field>
-        </div>
-        
+        </div>        
 
         <v-btn icon>
           <v-icon>mdi-magnify</v-icon>
@@ -145,9 +144,14 @@
 </template>
 
 <script>
+
+  import {mapState} from 'vuex';
+  let _storage = window.localStorage;
+
   export default {
     data () {
       return {
+        userInfo : null,
         drawer: true,
         items: [
           { title: 'Home', icon: 'mdi-home-city' },
@@ -191,10 +195,8 @@
         ],
         currServer : {serverName: '1번서버', serverId: '1'},
         currCharacter : {charName: '《전체》', charId: '0'},
-        userInfo : null,
         serverIdx : 0,
         characterIdx : 0,
-
         serachText: '',
         characters : [
           {charName: '《전체》', charId: '0'},
@@ -230,6 +232,12 @@
               this.currCharacter.charId = this.characters[v].charId;
           }
         },
+        isLogin(val) {
+          this.userInfo = val ? JSON.parse(_storage.getItem(process.env.VUE_APP_USER_DATA)) : null;
+        },
+    },
+    computed : {
+      ...mapState(['isLogin']),
     },
     methods: {
       serverBtn(index) {
@@ -244,8 +252,6 @@
           document.getElementById("sidebar").classList.toggle("showSidebar");
       },
       moveRoute(path) {
-            // 메뉴 닫기
-            // this.openDropdownUser(true);
             // 라우터이동
             this.$router.push({
                 path: path,

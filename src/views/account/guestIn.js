@@ -1,7 +1,8 @@
 import acutApi from '@/api/account/account';
 import http from '@/api/http';
+import { mapMutations } from 'vuex';
 
-let _storage = window.sessionStorage;
+let _storage = window.localStorage;
 
 export default {
   name: 'GuestIn',
@@ -11,6 +12,7 @@ export default {
   },
   watch: {},
 	methods: {
+    ...mapMutations(['SET_LOGIN']),
     guestLogin() {
       acutApi.insGust().then(res => {
         if(res.data != null){
@@ -27,10 +29,9 @@ export default {
           http.setToken(data.userToken);
           http.setToken(data.clntIp);
           
-          this.$router.push({
-            path: `/`,
-          });
-
+          // 로그인 여부 store에 저장
+          this.SET_LOGIN(true);
+          this.$router.push({ path: `/` });
         } else {
           console.log('res', res);
         }
@@ -42,8 +43,6 @@ export default {
   },
   created() {
     _storage.removeItem(process.env.VUE_APP_TOKEN_KEY);
-    // _storage.setItem(process.env.VUE_APP_TOKEN_KEY, JSON.stringify(data));
-    // http.setCustToken(token);
-
+    _storage.removeItem(process.env.VUE_APP_USER_DATA);
   },
 }
