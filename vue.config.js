@@ -23,7 +23,7 @@ module.exports = defineConfig({
         "secure":false
       },
       '/dunsum':{
-        "target":'http://localhost:9090',
+        "target":'http://dunsum-local.kr:9090',
         "pathRewrite":{'^/':''},
         "changeOrigin":true,
         "secure":false
