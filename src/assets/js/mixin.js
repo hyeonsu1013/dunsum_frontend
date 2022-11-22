@@ -12,6 +12,16 @@ var globalMixin={
           history.go(1);
       };
     },
+
+    // 알럿 열기
+    showAlert(v) {
+			this.$root.$children[0].alertData = {...this.$root.$children[0].alertData, ...v};
+			this.$root.$children[0].$refs.dunsumAlert.showAlert();
+		},
+    // 알럿 닫기
+		hideAlert() {
+			this.$root.$children[0].$refs.dunsumAlert.hideAlert();
+		},
 	}
 }
 

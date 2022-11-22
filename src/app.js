@@ -3,6 +3,7 @@ import router from "@/router/index";
 import menu from "./views/menu";
 import {overrideUserAgentUsingClientHints} from "@/utils/uach-retrofill";
 
+const DunsumAlert = () => import(/* webpackChunkName: "DunsumAlert" */  '@/components/common/DunsumAlert.vue');
 const DunsumHeader = () => import(/* webpackChunkName: "DunsumHeader" */  '@/components/DunsumHeader.vue');
 const DunsumFooter = () => import(/* webpackChunkName: "DunsumFooter" */  '@/components/DunsumFooter.vue');
 
@@ -15,7 +16,7 @@ function loadView(path, view) {
 export default {
   name: "App",
   components:{
-    DunsumFooter, DunsumHeader,
+    DunsumAlert, DunsumFooter, DunsumHeader,
   },
   data() {
     return {
@@ -25,13 +26,28 @@ export default {
       isMobl : false,
       windowWidth : window.innerWidth,
       windowHeight : window.innerHeight,
+      alertData : {},
+      initAlertData : {
+        iconType : '',
+        maxWidth : 300,
+        title : '',
+        msg : '',
+        btnColorL : '',
+        btnTxtL : '',
+        leftParam : null,
+        left : {},
+        btnColorR : '',
+        btnTxtR : '',
+        rightParam : null,
+        right: {},
+      },
     }
   },
   mounted() {
-    window.addEventListener('resize', this.handleResize);
+    // window.addEventListener('resize', this.handleResize);
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.handleResize);
+    // window.removeEventListener('resize', this.handleResize);
   },
   watch : {},
   methods: {
@@ -81,14 +97,20 @@ export default {
       })
     },
 
+    // alert Data 초기화
+    initAlert() {
+      this.alertData = JSON.parse(JSON.stringify(this.initAlertData));
+    },
+
     // 화면 크기 변경 감지
-    handleResize() {
-      this.windowWidth = window.innerWidth;
-      this.windowHeight = window.innerHeight;
-    }
+    // handleResize() {
+    //   this.windowWidth = window.innerWidth;
+    //   this.windowHeight = window.innerHeight;
+    // }
   },
   
   created() {
+    this.initAlert();
     this.setUserAgnet();
     this.makeRouteView();
   },
