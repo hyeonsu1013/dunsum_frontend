@@ -111,16 +111,16 @@
 
         <v-spacer></v-spacer>
         <div class="searchbox mr10">
-          <v-text-field v-model="serachTextItem" label="아이템 검색" background-color="white" color="brown lighten-1"
+          <v-text-field v-model="serachTextItem" label="아이템 검색" background-color="white" color="brown lighten-1" @keyup.enter="search('i')"
                         outlined clearable rounded hide-details="true"></v-text-field>
         </div>
 
         <div class="searchbox">
-          <v-text-field v-model="serachTextChar" label="캐릭터 검색" background-color="white" color="brown lighten-1"
+          <v-text-field v-model="serachTextChar" label="캐릭터 검색" background-color="white" color="brown lighten-1" @keyup.enter="search('c')"
                         outlined clearable rounded hide-details="true"></v-text-field>
         </div>
 
-        <v-btn icon>
+        <v-btn icon @click="search()">
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
         <v-menu bottom left :offset-y="true" transition="slide-y-transition">
@@ -253,16 +253,24 @@
       characterBtn(index) {
         this.characterIdx = index;
       },
-      openMenuMobile(){
-          document.getElementById("menu").classList.toggle("showMenu");
-          document.getElementById("sidebar").classList.toggle("showSidebar");
-      },
       moveRoute(path) {
-            // 라우터이동
-            this.$router.push({
-                path: path,
-            });
-        },
+        // 라우터이동
+        this.$router.push({
+            path: path,
+        });
+      },
+      search(type) {
+        // TODO alert
+
+        if(cUtils.isEmpty(type)){
+          type = cUtils.isEmpty(this.serachTextItem) ? 'c' : 'i';
+        }
+
+        this.$router.push({
+            path: `/search/${type}list`,
+            query : {'target' : this.serachTextItem || this.serachTextChar}
+        });
+      },
     },
     created() {
       this.topMenuList = this.topMenuNonList;
