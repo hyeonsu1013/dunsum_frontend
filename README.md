@@ -4,6 +4,12 @@
 * Vuetify Project
 >
 
+* Custom Alert 사용
+  1. BaseComponent : vuetify v-dialog
+  2. global Alert으로 생성
+  3. 각 파일 내에서 Custom 가능
+>
+
 * 좌측 고정 Navigation
   1. Bar_1 : 간편 메뉴이동 (확장/축소 기능 적용)
   2. Bar_2 : 선택 값에 따른 router Data 조회 조건 변경 : Global Param 역할
