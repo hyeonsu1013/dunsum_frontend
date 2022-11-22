@@ -11,14 +11,23 @@
 // Vuetify Globals
 // Vuetify에 자동으로 오버라이드 됨
 ///////////////////////////////////////////////
+
+/*
+ * size
+ */
+$size-width-default-max : 768px;
+$size-width-title-max : 1000px;
+
+/*
+ *
+ */
 $body-font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 $border-radius-root: 6px;
 $font-size-root: 14px;
 
-
-// 사용자 정의 변수
-// 여기에 매인컬러, 서브컬러 등의 변수를 설정하면 SCSS 어디에서도 사용할 수 있습니다. 
-//////////////////////////////////////////////
+/*
+ * color
+ */
 $color-main : #ff3322;
 $color-sub : #334455;
 $color-gray-1 : #333333;

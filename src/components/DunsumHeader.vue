@@ -6,9 +6,6 @@
         <v-list-item-avatar>
           <v-img src="../assets/images/vue/logo.png"></v-img>
         </v-list-item-avatar>
-        <div class="header_nav_mobile">
-            <i class="fa fa-bars" v-on:click="openMenuMobile()"></i>  
-        </div>
 
         <v-list-item-title>Javayaji's DNF</v-list-item-title>
 
@@ -33,7 +30,7 @@
     <!-- E: 좌측 네비게이션 -->
 
     <!-- S: 좌측 메뉴목록 -->
-    <div class="header_menu" id="header_menu">
+    <div class="header_menu">
       <div class="logo">
           <a :href="domain_link.dnfOpenApi" target="_blank">
           <img src="../assets\images\dnf\neopleBIsmall.png" alt="Neople 오픈 API"/> </a>
@@ -99,22 +96,29 @@
     <!-- S: 상단 메뉴바 -->
     <v-app-bar class="header_appbar" elevate-on-scroll height="80">
       <div class="contents">
-        <v-toolbar-title class="title" @click="moveRoute('/')">
-          <div class="wrapper">
-            <div class="focus">
-              DUNSUM
+        <div class="title_wrapper">
+          <v-toolbar-title class="title" @click="moveRoute('/')">
+            <div class="wrapper">
+              <div class="focus">
+                DUNSUM
+              </div>
+              <div class="mask">
+                <div class="text">DUNSUM</div>
+              </div>
             </div>
-            <div class="mask">
-              <div class="text">DUNSUM</div>
-            </div>
-          </div>
-        </v-toolbar-title>
+          </v-toolbar-title>
+        </div>
 
         <v-spacer></v-spacer>
-        <div class="searchbox">
-          <v-text-field v-model="serachText" label="캐릭터 검색" background-color="white" color="brown lighten-1"
+        <div class="searchbox mr10">
+          <v-text-field v-model="serachTextItem" label="아이템 검색" background-color="white" color="brown lighten-1"
                         outlined clearable rounded hide-details="true"></v-text-field>
-        </div>        
+        </div>
+
+        <div class="searchbox">
+          <v-text-field v-model="serachTextChar" label="캐릭터 검색" background-color="white" color="brown lighten-1"
+                        outlined clearable rounded hide-details="true"></v-text-field>
+        </div>
 
         <v-btn icon>
           <v-icon>mdi-magnify</v-icon>
@@ -127,7 +131,7 @@
           </template>
 
           <v-list flat>
-            <v-list-item v-for="(menu, i) in topMenuNonList" :key="i" @click="moveRoute(menu.moveUrl)">
+            <v-list-item v-for="(menu, i) in topMenuList" :key="i" @click="moveRoute(menu.moveUrl)">
               <v-list-item-icon>
                 <v-icon>{{menu.icon}}</v-icon>
               </v-list-item-icon>
@@ -145,6 +149,7 @@
 
 <script>
 
+  import cUtils from '@/utils/commonUtils';
   import {mapState} from 'vuex';
   let _storage = window.localStorage;
 
@@ -166,38 +171,26 @@
         },
         // 목록 온/오프
         toggleDropdown : {
-            characters : false,
-            user : false,
             server : false,
         },
+        topMenuList : [],
         topMenuNonList : [
-          {
-            title: '대시보드',
-            icon : 'mdi-format-list-bulleted-square',
-            moveUrl : '/',
-          },
-          {
-            title: '로그인 (Guest)',
-            icon : 'mdi-account-outline',
-            moveUrl : '/account/guestin',
-          },
-          {
-            title: '로그인',
-            icon : 'mdi-account',
-            moveUrl : '/account/signin',
-          },
-          {
-            title: '회원가입',
-            icon : 'mdi-account-plus',
-            moveUrl : '/account/signup',
-          },
-
+          { title: '대시보드', icon : 'mdi-format-list-bulleted-square', moveUrl : '/' },
+          { title: '로그인 (Guest)', icon : 'mdi-account-outline', moveUrl : '/account/guestin' },
+          { title: '로그인', icon : 'mdi-account', moveUrl : '/account/signin' },
+          { title: '회원가입', icon : 'mdi-account-plus', moveUrl : '/account/signup' },
+        ],
+        topMenuUserList : [
+          { title: '대시보드', icon : 'mdi-format-list-bulleted-square', moveUrl : '/' },
+          { title: '마이페이지', icon : 'mdi-account', moveUrl : '/' },
+          { title: '로그아웃', icon : 'mdi-logout', moveUrl : null, alret : 'logout' },
         ],
         currServer : {serverName: '1번서버', serverId: '1'},
         currCharacter : {charName: '《전체》', charId: '0'},
         serverIdx : 0,
         characterIdx : 0,
-        serachText: '',
+        serachTextItem: '',
+        serachTextChar: '',
         characters : [
           {charName: '《전체》', charId: '0'},
           {charName: '1번캐릭터', charId: '1'},
@@ -234,7 +227,20 @@
         },
         isLogin(val) {
           this.userInfo = val ? JSON.parse(_storage.getItem(process.env.VUE_APP_USER_DATA)) : null;
+          this.topMenuList = val ? this.topMenuUserList : this.topMenuNonList;
         },
+        serachTextItem(txt) {
+          if(cUtils.isEmpty(txt)){
+            return;
+          }
+          this.serachTextChar = '';
+        },
+        serachTextChar(txt) {
+          if(cUtils.isEmpty(txt)){
+            return;
+          }
+          this.serachTextItem = '';
+        }
     },
     computed : {
       ...mapState(['isLogin']),
@@ -258,5 +264,8 @@
             });
         },
     },
+    created() {
+      this.topMenuList = this.topMenuNonList;
+  },
   }
 </script>

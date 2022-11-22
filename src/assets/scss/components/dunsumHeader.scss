@@ -3,7 +3,6 @@
  - search_nav
  - search_menu
  - search_appbar
- - search_appbar_title
  */
 
 /**
@@ -20,7 +19,7 @@
   display: none;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: $size-width-default-max) {
   .header_nav {
     height: auto;
   }
@@ -105,7 +104,7 @@
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: $size-width-default-max) {
   .header_menu {
     left: -100%;
     transition: all 500ms ease-in-out;
@@ -189,12 +188,15 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
   }
 
   /**
   * search_appbar_title
   */
+  .title_wrapper {
+    width: 100%;
+    position: relative;
+  }
   .title {
     $target: #000;
     cursor: pointer;
@@ -203,7 +205,7 @@
       left: 50%;
       top: 50%;
       transform: translate(-50%,-50%);
-      width: 235px;
+      width: 360px;
       height: 70px;
       white-space: nowrap;
     }
@@ -280,6 +282,11 @@
   }
 }
 
-/**
- * search_appbar_title
- */
+@media only screen and (max-width: $size-width-title-max) {
+  .header_appbar {
+    padding-left: 56px;
+  }
+  .title_wrapper {
+    left: -200% !important;
+  }
+}
