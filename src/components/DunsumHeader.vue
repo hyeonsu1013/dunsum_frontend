@@ -148,159 +148,176 @@
 </template>
 
 <script>
+import dnfInnrApi from '@/api/dnf/dnf';
+import dnfOtsdApi from '@/api/outside/dnf';
+import cUtils from '@/utils/commonUtils';
+import { mapState, mapMutations } from 'vuex';
+let _storage = window.localStorage;
 
-  import cUtils from '@/utils/commonUtils';
-  import {mapState} from 'vuex';
-  let _storage = window.localStorage;
-
-  export default {
-    data () {
-      return {
-        userInfo : null,
-        drawer: true,
-        items: [
-          { title: 'Home', icon: 'mdi-home-city' },
-          { title: 'My Account', icon: 'mdi-account' },
-          { title: 'Users', icon: 'mdi-account-group-outline' },
-        ],
-        mini: true,
-        domain_link : {
-            dnfOpenApi : 'http://developers.neople.co.kr',
-            github : 'https://github.com/hyeonsu1013',
-            instagram : 'https://www.instagram.com/just_h.soo/',
-        },
-        // 목록 온/오프
-        toggleDropdown : {
-            server : false,
-        },
-        topMenuList : [],
-        topMenuNonList : [
-          { title: '대시보드', icon : 'mdi-format-list-bulleted-square', moveUrl : '/' },
-          { title: '로그인 (Guest)', icon : 'mdi-account-outline', moveUrl : '/account/guestin' },
-          { title: '로그인', icon : 'mdi-account', moveUrl : '/account/signin' },
-          { title: '회원가입', icon : 'mdi-account-plus', moveUrl : '/account/signup' },
-        ],
-        topMenuUserList : [
-          { title: '대시보드', icon : 'mdi-format-list-bulleted-square', moveUrl : '/' },
-          { title: '마이페이지', icon : 'mdi-account', moveUrl : '/' },
-          { title: '로그아웃', icon : 'mdi-logout', moveUrl : null, alret : 'logout' },
-        ],
-        currServer : {serverName: '1번서버', serverId: '1'},
-        currCharacter : {charName: '《전체》', charId: '0'},
-        serverIdx : 0,
-        characterIdx : 0,
-        serachTextItem: '',
-        serachTextChar: '',
-        characters : [
-          {charName: '《전체》', charId: '0'},
-          {charName: '1번캐릭터', charId: '1'},
-          {charName: '2번캐릭터', charId: '2'},
-          {charName: '3번캐릭터', charId: '3'},
-          {charName: '4번캐릭터', charId: '4'},
-          {charName: '5번캐릭터', charId: '5'},
-          {charName: '6번캐릭터', charId: '6'},
-        ],
-        servers : [
-          {serverName: '1번서버', serverId: '1'},
-          {serverName: '2번서버', serverId: '2'},
-          {serverName: '3번서버', serverId: '3'},
-          {serverName: '4번서버', serverId: '4'},
-          {serverName: '5번서버', serverId: '5'},
-          {serverName: '6번서버', serverId: '6'},
-          {serverName: '7번서버', serverId: '7'},
-          {serverName: '8번서버', serverId: '8'},
-        ],
-      }
-    },
-    watch: {
-        serverIdx(v) {
-          if(this.servers.length > v) {
-              this.currServer.serverName = this.servers[v].serverName;
-              this.currServer.serverId = this.servers[v].serverId;
-          }
-        },
-        characterIdx(v) {
-          if(this.characters.length > v) {
-              this.currCharacter.charName = this.characters[v].charName;
-              this.currCharacter.charId = this.characters[v].charId;
-          }
-        },
-        isLogin(val) {
-          this.userInfo = val ? JSON.parse(_storage.getItem(process.env.VUE_APP_USER_DATA)) : null;
-          this.topMenuList = val ? this.topMenuUserList : this.topMenuNonList;
-        },
-        serachTextItem(txt) {
-          if(cUtils.isEmpty(txt)){
-            return;
-          }
-          this.serachTextChar = '';
-        },
-        serachTextChar(txt) {
-          if(cUtils.isEmpty(txt)){
-            return;
-          }
-          this.serachTextItem = '';
+export default {
+  data () {
+    return {
+      userInfo : null,
+      drawer: true,
+      items: [
+        { title: 'Home', icon: 'mdi-home-city' },
+        { title: 'My Account', icon: 'mdi-account' },
+        { title: 'Users', icon: 'mdi-account-group-outline' },
+      ],
+      mini: true,
+      domain_link : {
+          dnfOpenApi : 'http://developers.neople.co.kr',
+          github : 'https://github.com/hyeonsu1013',
+          instagram : 'https://www.instagram.com/just_h.soo/',
+      },
+      // 목록 온/오프
+      toggleDropdown : {
+          server : false,
+      },
+      topMenuList : [],
+      topMenuNonList : [
+        { title: '대시보드', icon : 'mdi-format-list-bulleted-square', moveUrl : '/' },
+        { title: '로그인 (Guest)', icon : 'mdi-account-outline', moveUrl : '/account/guestin' },
+        { title: '로그인', icon : 'mdi-account', moveUrl : '/account/signin' },
+        { title: '회원가입', icon : 'mdi-account-plus', moveUrl : '/account/signup' },
+      ],
+      topMenuUserList : [
+        { title: '대시보드', icon : 'mdi-format-list-bulleted-square', moveUrl : '/' },
+        { title: '마이페이지', icon : 'mdi-account', moveUrl : '/' },
+        { title: '로그아웃', icon : 'mdi-logout', moveUrl : null, alret : 'logout' },
+      ],
+      currServer : {serverName: '1번서버', serverId: '1'},
+      currCharacter : {charName: '《전체》', charId: '0'},
+      serverIdx : 0,
+      characterIdx : 0,
+      serachTextItem: '',
+      serachTextChar: '',
+      characters : [
+        {charName: '《전체》', charId: '0'},
+        {charName: '1번캐릭터', charId: '1'},
+      ],
+      servers : [],
+    }
+  },
+  watch: {
+      serverIdx(v) {
+        if(this.servers.length > v) {
+            this.currServer.serverName = this.servers[v].serverName;
+            this.currServer.serverId = this.servers[v].serverId;
         }
-    },
-    computed : {
-      ...mapState(['isLogin']),
-    },
-    methods: {
-      serverBtn(index) {
-        this.serverIdx = index;
-        this.toggleDropdown.server = false;
       },
-      characterBtn(index) {
-        this.characterIdx = index;
+      characterIdx(v) {
+        if(this.characters.length > v) {
+            this.currCharacter.charName = this.characters[v].charName;
+            this.currCharacter.charId = this.characters[v].charId;
+        }
       },
-      moveRoute(path) {
-        // 라우터이동
-        this.$router.push({
-            path: path,
-        });
+      isLogin(val) {
+        this.userInfo = val ? JSON.parse(_storage.getItem(process.env.VUE_APP_USER_DATA)) : null;
+        this.topMenuList = val ? this.topMenuUserList : this.topMenuNonList;
+
+        // 서버 조회
+        this.selServers();
+        // 캐릭터 조회
       },
-      leftBtn(a) {
-        console.log('a', a);
-      },
-      rightBtn(a) {
-        console.log('a', a);
-      },
-      search(type) {
-        // TODO alert
-        if(cUtils.isEmpty(this.serachTextItem || this.serachTextChar)){
-          let initAlertData = {
-            show : false,
-            iconType : '',
-            maxWidth : 300,
-            title : '내용',
-            msg : '타이틀',
-            btnColorL : 'green darken-1',
-            btnTxtL : '왼쪽',
-            leftParam : 'left',
-            left : this.leftBtn,
-            btnColorR : 'green darken-1',
-            btnTxtR : '오른쪽',
-            rightParam : 'right',
-            right: this.rightBtn,
-          };
-          this.showAlert(initAlertData);
+      serachTextItem(txt) {
+        if(cUtils.isEmpty(txt)){
           return;
         }
-
-
-
-        if(cUtils.isEmpty(type)){
-          type = cUtils.isEmpty(this.serachTextItem) ? 'c' : 'i';
-        }
-
-        this.$router.push({
-            path: `/search/${type}list`,
-            query : {'target' : this.serachTextItem || this.serachTextChar}
-        });
+        this.serachTextChar = '';
       },
+      serachTextChar(txt) {
+        if(cUtils.isEmpty(txt)){
+          return;
+        }
+        this.serachTextItem = '';
+      }
+  },
+  computed : {
+    ...mapState(['isLogin']),
+  },
+  methods: {
+    ...mapMutations(['SET_SRVR']),
+    serverBtn(index) {
+      this.serverIdx = index;
+      this.toggleDropdown.server = false;
     },
-    created() {
-      this.topMenuList = this.topMenuNonList;
+    characterBtn(index) {
+      this.characterIdx = index;
     },
-  }
+    moveRoute(path) {
+      // 라우터이동
+      this.$router.push({
+          path: path,
+      });
+    },
+    selServers() {
+      let _this = this;
+      let api = this.isLogin ? dnfInnrApi : dnfOtsdApi;
+
+      api.selDnfServers({})
+      .then(res => {
+        if(res.status == 200){
+          _this.servers = res.data.rows;
+          if(_this.servers != null && _this.servers.length > 0){
+             _this.SET_SRVR(_this.servers);
+            _this.currServer = _this.servers[0];
+          }
+        }
+      })
+      .catch((err) => {
+        if (err.message.indexOf('Network Error') > -1) {
+            console.error('네트워크가 원활하지 않습니다.\n잠시 후 다시 시도해주세요.');
+            console.error(err);
+        }
+      }).finally(() => {
+      });
+    },
+
+
+    leftBtn(a) {
+      console.log('a', a);
+    },
+    rightBtn(a) {
+      console.log('a', a);
+    },
+    search(type) {
+      // TODO alert
+      if(cUtils.isEmpty(this.serachTextItem || this.serachTextChar)){
+        let initAlertData = {
+          show : false,
+          iconType : '',
+          maxWidth : 300,
+          title : '내용',
+          msg : '타이틀',
+          btnColorL : 'green darken-1',
+          btnTxtL : '왼쪽',
+          leftParam : 'left',
+          left : this.leftBtn,
+          btnColorR : 'green darken-1',
+          btnTxtR : '오른쪽',
+          rightParam : 'right',
+          right: this.rightBtn,
+        };
+        this.showAlert(initAlertData);
+        return;
+      }
+
+
+
+      if(cUtils.isEmpty(type)){
+        type = cUtils.isEmpty(this.serachTextItem) ? 'c' : 'i';
+      }
+
+      this.$router.push({
+          path: `/search/${type}list`,
+          query : {'target' : this.serachTextItem || this.serachTextChar}
+      });
+    },
+  },
+  created() {
+    this.topMenuList = this.topMenuNonList;
+    this.selServers();
+  },
+}
 </script>
