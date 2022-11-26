@@ -2,7 +2,7 @@ import acutApi from '@/api/account/account';
 import http from '@/api/http';
 import { mapMutations } from 'vuex';
 
-let _storage = window.localStorage;
+let _storage = window.sessionStorage;
 
 export default {
   name: 'GuestIn',

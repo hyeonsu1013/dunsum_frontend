@@ -152,7 +152,7 @@ import dnfInnrApi from '@/api/dnf/dnf';
 import dnfOtsdApi from '@/api/outside/dnf';
 import cUtils from '@/utils/commonUtils';
 import { mapState, mapMutations } from 'vuex';
-let _storage = window.localStorage;
+let _storage = window.sessionStorage;
 
 export default {
   data () {

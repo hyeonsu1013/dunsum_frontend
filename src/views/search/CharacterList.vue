@@ -13,17 +13,21 @@
         <v-expansion-panel-header>
           <template v-if="panel.indexOf(i) < 0">
               <v-row no-gutters>
-                <v-col>
-                    {{getCharNm(char)}}
+                <v-col md="1">
+                  <v-img :lazy-src="getImagePath('lazy')" :src="getImagePath(char.jobId)" max-height="32" max-width="36"/>
                 </v-col>
-                <v-col>
-                    .col-6 .col-md-4
+                <v-col md="1" class="row_text row_level fbold" :class="{'fblue': char.level == maxLevel }">
+                  {{char.level}}
                 </v-col>
-                <v-col>
-                    세번째
+                <v-col md="2" class="row_text row_name">
+                  <template v-for="(strObj, index) in rplcCharName(char.characterName)">
+                    <span :key="'strObj'+index" :class="{'fred': strObj.isRed }">{{strObj.str}}</span>
+                  </template>
+                </v-col>
+                <v-col md="2" class="row_text row_server">
+                  {{serversMap[char.serverId]}}
                 </v-col>
               </v-row>
-            <!-- {{char.characterName}} -->
           </template>
         </v-expansion-panel-header>
         <v-expansion-panel-content>

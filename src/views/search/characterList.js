@@ -6,10 +6,12 @@ export default {
   name: 'CharacterList',
   data(){
       return{
+        maxLevel : 110,
         panel : [],
         target : '',
         charList : [],
         servers : [],
+        serversMap : {},
         currChar : {},
       }
   },
@@ -21,8 +23,8 @@ export default {
     allClose() {
       this.panel = [];
     },
-    getCharNm(char) {
-      return `${char.characterName} (${char.level})`; 
+    getImagePath(path) {
+      return require(`@/assets/images/dnf/profiles/s_${path}.png`);
     },
     selServers() {
       let _this = this;
@@ -40,7 +42,28 @@ export default {
             console.error(err);
         }
       }).finally(() => {
+        if(cUtils.isNotEmptyObject(_this.servers)){
+          _this.servers.forEach(el => {
+            _this.serversMap[el.serverId] = el.serverName;
+          });
+        }
       });
+    },
+    rplcCharName(characterName) {
+      let idx = characterName.indexOf(this.target);
+      let lastIdx = idx + this.target.length;
+
+      let strList = [];
+      if(idx == 0){
+        strList.push({str:characterName.substring(0, lastIdx), isRed: true});
+        strList.push({str:characterName.substring(lastIdx), isRed: false});
+      } else {
+        strList.push({str:characterName.substring(0, idx), isRed: false});
+        strList.push({str:characterName.substring(idx, lastIdx), isRed: true});
+        strList.push({str:characterName.substring(lastIdx), isRed: false});
+      }
+
+      return strList;
     },
     selCharacters() {
       let _this = this;
@@ -61,7 +84,6 @@ export default {
               console.error(err);
           }
       }).finally(() => {
-          // this.getCharacter();
       });
     },
   },
