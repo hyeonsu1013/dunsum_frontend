@@ -12,20 +12,20 @@
       <v-expansion-panel v-for="(char, i) in charList" :key="i">
         <v-expansion-panel-header>
           <template v-if="panel.indexOf(i) < 0">
-              <v-row no-gutters>
+              <v-row>
                 <v-col md="1">
-                  <v-img :lazy-src="getImagePath('lazy')" :src="getImagePath(char.jobId)" max-height="32" max-width="36"/>
+                  <v-img class="row_cont row_img" :lazy-src="getImagePath('lazy')" :src="getImagePath(char.jobId)" max-height="32" max-width="36"/>
                 </v-col>
-                <v-col md="1" class="row_text row_level fbold" :class="{'fblue': char.level == maxLevel }">
+                <v-col md="2" class="row_cont row_server bg_orange_light fbold">
+                  {{serversMap[char.serverId]}}
+                </v-col>
+                <v-col md="1" class="row_cont row_level fbold" :class="{'fblue': char.level == maxLevel }">
                   {{char.level}}
                 </v-col>
-                <v-col md="2" class="row_text row_name">
+                <v-col md="7" class="row_cont row_name bg_orange_light">
                   <template v-for="(strObj, index) in rplcCharName(char.characterName)">
                     <span :key="'strObj'+index" :class="{'fred': strObj.isRed }">{{strObj.str}}</span>
                   </template>
-                </v-col>
-                <v-col md="2" class="row_text row_server">
-                  {{serversMap[char.serverId]}}
                 </v-col>
               </v-row>
           </template>

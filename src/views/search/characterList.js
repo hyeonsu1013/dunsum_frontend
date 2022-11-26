@@ -15,7 +15,8 @@ export default {
         currChar : {},
       }
   },
-  watch: {},
+  watch: {
+  },
 	methods: {
     allOpen() {
       this.panel = [...Array(this.charList.length).keys()].map((k, i) => i);
