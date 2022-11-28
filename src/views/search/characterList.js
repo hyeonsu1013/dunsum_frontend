@@ -71,6 +71,7 @@ export default {
       let characters = {
           characterName : this.target,
           wordType : 'full',
+          limit : 50,
       };
 
       dnfOtsdApi.selCharacters(characters)
