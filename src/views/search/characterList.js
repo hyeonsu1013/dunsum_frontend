@@ -13,6 +13,7 @@ export default {
         servers : [],
         serversMap : {},
         currChar : {},
+        codeMap : {},
       }
   },
   watch: {
@@ -88,9 +89,14 @@ export default {
       }).finally(() => {
       });
     },
+    setCodeMap(map) {
+      this.codeMap = map;
+    }
   },
   created() {
     this.target = this.$route.query?.target;
+
+    this._selCommCode(['DNF_SRVR', 'DNF_JOB'], this.setCodeMap);
     this.selServers();
     if(cUtils.isNotEmpty(this.target)){
       this.selCharacters();
