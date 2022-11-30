@@ -17,4 +17,20 @@
     left: 50%;
     transform: translate(-50%, 0);
   }
+  &.row_img_ex {
+    background-image: url( "@/assets/images/dnf/profiles/m_background.png" );
+    background-repeat: no-repeat;
+    background-position: 50% 35%;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px gray;
+    .v-card--reveal {
+      align-items: center;
+      bottom: 0;
+      justify-content: center;
+      opacity: 1;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+    }
+  }
 }

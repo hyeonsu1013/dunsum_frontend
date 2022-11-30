@@ -1,6 +1,6 @@
-import dateUtils from './dateUtils';
-import commonUtils from './commonUtils';
+import dUtils from './dateUtils';
+import cUtils from './commonUtils';
 
 export default {
-  mixins:[dateUtils, commonUtils],
+  mixins:[dUtils, cUtils],
 }

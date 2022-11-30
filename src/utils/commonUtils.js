@@ -494,5 +494,15 @@ export default {
         }
     }
     return rs;
+  },
+
+  convertCodeList2Map(codeList=[]) {
+    let map = {};
+    if(this.isNotEmptyObject(codeList)){
+      codeList.forEach(el => {
+        map[el.codeId] = el.codeIdName;
+      });
+    }
+    return map;
   }
 }

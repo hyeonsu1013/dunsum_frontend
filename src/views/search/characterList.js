@@ -16,7 +16,15 @@ export default {
         codeMap : {},
       }
   },
-  watch: {
+  watch: {  
+    // panel() {
+    //   this.panel.forEach(idx => {
+    //     let char = this.charList[idx];
+    //     if(cUtils.isEmpty(char.imgPath)){
+    //       char.imgPath = 
+    //     }
+    //   });
+    // },
   },
 	methods: {
     allOpen() {
@@ -25,8 +33,8 @@ export default {
     allClose() {
       this.panel = [];
     },
-    getImagePath(path) {
-      return require(`@/assets/images/dnf/profiles/s_${path}.png`);
+    getImagePath(size, path) {
+      return require(`@/assets/images/dnf/profiles/${size}_${path}.png`);
     },
     selServers() {
       let _this = this;
@@ -79,7 +87,9 @@ export default {
       .then((res)=> {
           if(res.status == 200){
               _this.charList = res.data.rows;
-              console.log('_this.charList', _this.charList);
+              _this.charList.forEach(char => {
+                char.charImgPath = `https://img-api.neople.co.kr/df/servers/${char.serverId}/characters/${char.characterId}?zoom=3`;
+              });
           }
       }).catch((err) => {
           if (err.message.indexOf('Network Error') > -1) {
@@ -90,14 +100,16 @@ export default {
       });
     },
     setCodeMap(map) {
-      this.codeMap = map;
+      const codeMap = map;
+
+      this.servers = codeMap['DNF_SRVR'];
+      this.serversMap = cUtils.convertCodeList2Map(this.servers);
     }
   },
   created() {
-    this.target = this.$route.query?.target;
-
     this._selCommCode(['DNF_SRVR', 'DNF_JOB'], this.setCodeMap);
-    this.selServers();
+
+    this.target = this.$route.query?.target;
     if(cUtils.isNotEmpty(this.target)){
       this.selCharacters();
     }
