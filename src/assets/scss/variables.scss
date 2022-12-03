@@ -28,7 +28,7 @@ $font-size-root: 14px;
 /*
  * color
  */
-$color-main : #ff3322;
+$color-main : #d3935f;
 $color-sub : #334455;
 $color-gray-1 : #333333;
 $color-gray-2 : #666666;
@@ -36,3 +36,9 @@ $color-gray-3 : #999999;
 $color-gray-light : #f5f5f5;
 
 $color-orange-light : #fffaf5;
+
+/*
+ * font
+ */
+ $font-main : 'Nanum Gothic', sans-serif;
+ $font-title : 'Gamja Flower', cursive;
