@@ -2,8 +2,13 @@ import dnfInnrApi from '@/api/dnf/dnf';
 import dnfOtsdApi from '@/api/outside/dnf';
 import cUtils from '@/utils/commonUtils';
 
+const DunsumLayer = () => import(/* webpackChunkName: "LayerPopup" */ '@/components/common/DunsumLayer.vue');
+
 export default {
   name: 'CharacterList',
+  components: {
+    DunsumLayer
+  },
   data(){
       return{
         maxLevel : 110,
@@ -14,18 +19,17 @@ export default {
         serversMap : {},
         currChar : {},
         codeMap : {},
+
+        // layer
+        LayerShow : false,
+        slideImgs : [
+          { dir : 'guides', path : 'addcharacter1'},
+          { dir : 'guides', path : 'addcharacter2'},
+          { dir : 'guides', path : 'addcharacter3'},
+        ]
       }
   },
-  watch: {  
-    // panel() {
-    //   this.panel.forEach(idx => {
-    //     let char = this.charList[idx];
-    //     if(cUtils.isEmpty(char.imgPath)){
-    //       char.imgPath = 
-    //     }
-    //   });
-    // },
-  },
+  watch: {},
 	methods: {
     allOpen() {
       this.panel = [...Array(this.charList.length).keys()].map((k, i) => i);
@@ -33,8 +37,8 @@ export default {
     allClose() {
       this.panel = [];
     },
-    getImagePath(size, path) {
-      return require(`@/assets/images/dnf/profiles/${size}_${path}.png`);
+    getImagePath(size, dir, path) {
+      return require(`@/assets/images/dnf/${dir}/${size}_${path}.png`);
     },
     selServers() {
       let _this = this;
@@ -104,6 +108,13 @@ export default {
 
       this.servers = codeMap['DNF_SRVR'];
       this.serversMap = cUtils.convertCodeList2Map(this.servers);
+    },
+    pulsBtn(v) {
+      console.log(v);
+      this.LayerShow = true;
+    },
+    closeLayer() {
+      this.LayerShow = false;
     }
   },
   created() {
