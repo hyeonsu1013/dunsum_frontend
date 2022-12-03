@@ -7,10 +7,22 @@
 * Vuetify Project
 >
 
+# Font
+* 구글 공유 폰트 - SIL Open Font License 1.1
+>
+
 * Custom Alert 사용
   1. BaseComponent : vuetify v-dialog
-  2. global Alert으로 생성
+  2. global Alert으로 생성, 별도 생성 필요 없음
+  3. component 명 : DunsumAlret.vue
   3. 각 파일 내에서 Custom 가능
+>
+
+* Custom Dialog 사용
+  1. BaseComponent : vuetify v-dialog
+  2. local Layout으로 생성, 각 컴포넌트 내에서 별도 생성
+  3. component 명 - DunsumLayer.vue
+  4. 각 파일 내에서 Custom 가능
 >
 
 * 좌측 고정 Navigation
@@ -77,13 +89,3 @@ npm install
 ```
 npm run serve
 ```
-
-
-# TODO
-
-### Design
-1. 전체 컴포넌트 색 조정
-
-### 기능
-1. 캐릭터 검색 화면 추가
-2. 특정 페이지일 경우 뒤로가기 제어 기능 추가
