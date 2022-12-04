@@ -47,16 +47,48 @@
         </v-expansion-panel>
       </v-expansion-panels>
     </v-row>
-    <DunsumLayer :show="LayerShow" :title="'캐릭터 등록'" @right="closeLayer">
+    <DunsumLayer :show="LayerShow" :title="'캐릭터 등록 인증'" :btnTxtL="'저장'" @left="saveCharBtn" @right="closeLayer">
       <v-carousel height="500" hide-delimiter-background>
         <v-carousel-item v-for="(slide, i) in slideImgs" :key="i">
           <v-sheet :color="'white'" height="100%">
             <v-row class="fill-height" align="center" justify="center">
-              <v-img :src="getImagePath('l', slide.dir, slide.path)" max-height="500" max-width="500"/>
+              <v-img class="cl_img" :src="getImagePath('l', slide.dir, slide.path)" max-height="500" max-width="500"/>
             </v-row>
           </v-sheet>
         </v-carousel-item>
       </v-carousel>
+      <v-container>
+        <v-row class="fill-height cl_sel_row" align="center" justify="center">
+          <v-col class="row_text">
+            {{ ranNum + '번째 타임라인 ▶ '}}
+          </v-col>
+          <v-col class="row_selbox">
+            <v-menu ref="menu" v-model="menu" :close-on-content-click="false" :return-value.sync="date" transition="scale-transition" offset-y min-width="auto">
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field v-model="date" label="타임라인 날짜" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" hide-details="true"></v-text-field>
+              </template>
+              <v-date-picker v-model="date" no-title scrollable locale="ko">
+                <v-spacer></v-spacer>
+                <v-btn text color="primary" @click="menu = false">
+                  Cancel
+                </v-btn>
+                <v-btn text color="primary" @click="$refs.menu.save(date)">
+                  OK
+                </v-btn>
+              </v-date-picker>
+            </v-menu>
+          </v-col>
+          <v-col class="row_selbox">
+            <v-overflow-btn class="my-2 cl_sel_time" v-model="selTimeLine" :items="timeLineList" label="타임라인 / 검색가능" editable item-text="codeIdName" item-value="codeId" hide-details="true"></v-overflow-btn>
+          </v-col>
+        </v-row>
+        <v-row class="fill-height cl_sel_row">
+          <v-col class="row_text_hint fred">
+            2회 이상 오답 시, 일정 시간 동안 등록할 수 없습니다.
+          </v-col>
+        </v-row>
+      </v-container>
+      
     </DunsumLayer>
   </div>
 </template>

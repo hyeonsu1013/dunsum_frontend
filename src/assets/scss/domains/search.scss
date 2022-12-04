@@ -41,4 +41,27 @@
       color : orangered !important;
     }
   }
+  .cl_sel_row {
+    margin: 10px 0;
+    font-size: 1.5rem;
+    .row_text {
+      text-align : center;
+      justify-content : center;
+      font-weight: bold;
+    }
+    .row_text_hint {
+      text-align : center;
+      justify-content : center;
+      font-size: 1rem;
+    }
+    .row_selbox {
+      .cl_sel_time {
+        .v-input__slot {
+          border-color: $color-gray-3 !important;
+          border-top-width: 0px !important;
+          border-bottom-width: 1px !important;
+        }
+      }
+    }
+  }
 }

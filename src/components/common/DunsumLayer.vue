@@ -13,12 +13,11 @@
       
       <v-card-actions>
         <v-spacer></v-spacer>
-
-        <v-btn v-if="btnTxtL != ''" :color="btnColorL" text @click="left">
+        <v-btn class="dl_btn" v-if="btnTxtL != ''" :color="btnColorL" @click="left">
           {{ btnTxtL }}
         </v-btn>
 
-        <v-btn v-if="btnTxtR != ''" :color="btnColorR" text @click="right">
+        <v-btn class="dl_btn" v-if="btnTxtR != ''" :color="btnColorR" @click="right" outlined>
           {{ btnTxtR }}
         </v-btn>
       </v-card-actions>
@@ -56,7 +55,7 @@ export default {
     // 왼쪽 버튼 색상 지정
     btnColorL: {
       type: String,
-      default: "",
+      default: "brown lighten-2",
     },
     // 하단 좌측 버튼명 지정
     btnTxtL: {
@@ -68,7 +67,7 @@ export default {
     // 오른쪽 버튼 색상 지정
     btnColorR: {
       type: String,
-      default: "",
+      default: "brown lighten-2",
     },
     // 하단 우측 버튼명 지정
     btnTxtR: {

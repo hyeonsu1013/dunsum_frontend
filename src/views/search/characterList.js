@@ -26,7 +26,14 @@ export default {
           { dir : 'guides', path : 'addcharacter1'},
           { dir : 'guides', path : 'addcharacter2'},
           { dir : 'guides', path : 'addcharacter3'},
-        ]
+        ],
+        ranNum : 0,
+        timeLineList : [],
+        selTimeLine : null,
+        date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substring(0, 10),
+        menu: false,
+        modal: false,
+        menu2: false,
       }
   },
   watch: {},
@@ -107,18 +114,23 @@ export default {
       const codeMap = map;
 
       this.servers = codeMap['DNF_SRVR'];
+      this.timeLineList = codeMap['DNF_TIME_LINE'];
       this.serversMap = cUtils.convertCodeList2Map(this.servers);
     },
     pulsBtn(v) {
-      console.log(v);
+      this.ranNum = Math.ceil(Math.random()*10);
+      console.log('this.ranNum', this.ranNum);
       this.LayerShow = true;
     },
     closeLayer() {
       this.LayerShow = false;
+    },
+    saveCharBtn() {
+      console.log('saveCharBtn',this.ranNum);
     }
   },
   created() {
-    this._selCommCode(['DNF_SRVR', 'DNF_JOB'], this.setCodeMap);
+    this._selCommCode(['DNF_SRVR', 'DNF_JOB', 'DNF_TIME_LINE'], this.setCodeMap);
 
     this.target = this.$route.query?.target;
     if(cUtils.isNotEmpty(this.target)){
