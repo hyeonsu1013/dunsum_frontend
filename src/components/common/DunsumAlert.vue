@@ -1,22 +1,22 @@
 <template>
-  <v-dialog v-model="show" :max-width="maxWidth">
+  <v-dialog class="al_dialog" v-model="show" :max-width="maxWidth">
     <v-card>
-      <v-card-title class="text-h5">
+      <v-card-title class="al_title">
         {{ title }}
       </v-card-title>
 
-      <v-card-text>
+      <v-card-text class="al_text">
         {{ msg }}
       </v-card-text>
 
       <v-card-actions>
         <v-spacer></v-spacer>
 
-        <v-btn v-if="btnTxtL != ''" :color="btnColorL" text @click="left">
+        <v-btn v-if="btnTxtL != ''" :color="btnColorL" @click="left">
           {{ btnTxtL }}
         </v-btn>
 
-        <v-btn v-if="btnTxtR != ''" :color="btnColorR" text @click="right">
+        <v-btn v-if="btnTxtR != ''" :color="btnColorR" outlined @click="right">
           {{ btnTxtR }}
         </v-btn>
       </v-card-actions>
@@ -35,7 +35,7 @@ export default {
     // 알럿 최대 너비
     maxWidth : {
       type: Number,
-      default: 300,
+      default: 400,
     },
     // 제목 입력
     title: {
@@ -50,7 +50,7 @@ export default {
     // 왼쪽 버튼 색상 지정
     btnColorL: {
       type: String,
-      default: "",
+      default: "brown lighten-2",
     },
     // 하단 좌측 버튼명 지정
     btnTxtL: {
@@ -62,7 +62,7 @@ export default {
     // 오른쪽 버튼 색상 지정
     btnColorR: {
       type: String,
-      default: "",
+      default: "brown lighten-2",
     },
     // 하단 우측 버튼명 지정
     btnTxtR: {
@@ -85,7 +85,6 @@ export default {
     },
     hideAlert() {
       this.show = false;
-      this.initAlertData();
     },
     //하단 좌측 버튼 클릭
     left() {

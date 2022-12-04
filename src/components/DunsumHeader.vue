@@ -273,37 +273,12 @@ export default {
       }).finally(() => {
       });
     },
-
-
-    leftBtn(a) {
-      console.log('a', a);
-    },
-    rightBtn(a) {
-      console.log('a', a);
-    },
     search(type) {
       // TODO alert
       if(cUtils.isEmpty(this.serachTextItem || this.serachTextChar)){
-        let initAlertData = {
-          show : false,
-          iconType : '',
-          maxWidth : 300,
-          title : '내용',
-          msg : '타이틀',
-          btnColorL : 'green darken-1',
-          btnTxtL : '왼쪽',
-          leftParam : 'left',
-          left : this.leftBtn,
-          btnColorR : 'green darken-1',
-          btnTxtR : '오른쪽',
-          rightParam : 'right',
-          right: this.rightBtn,
-        };
-        this.showAlert(initAlertData);
+        this.showAlert('2자 이상 입력해주세요.');
         return;
       }
-
-
 
       if(cUtils.isEmpty(type)){
         type = cUtils.isEmpty(this.serachTextItem) ? 'c' : 'i';

@@ -1,6 +1,6 @@
 <template>
   <div>
-    item
+    item (구현예정)
   </div>
 </template>
 

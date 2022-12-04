@@ -16,7 +16,15 @@ var globalMixin={
 	},
 	methods: {
     // 알럿 열기
-    showAlert(v) {
+    showAlert(data) {
+      let v = null;
+
+      if(data.constructor === String){
+        v = { msg : data, right: this.hideAlert};
+      } else {
+        v = data;
+      }
+
 			this.$root.$children[0].alertData = {...this.$root.$children[0].alertData, ...v};
 			this.$root.$children[0].$refs.dunsumAlert.showAlert();
 		},

@@ -25,7 +25,7 @@
                 </v-col>
                 <v-col md="7" class="row_cont row_name bg_orange_light">
                   <template v-for="(strObj, index) in rplcCharName(char.characterName)">
-                    <span :key="'strObj'+index" :class="{'fred': strObj.isRed }">{{strObj.str}}</span>
+                    <span :key="'strObj'+index" :class="{'fmain': strObj.isRed }">{{strObj.str}}</span>
                   </template>
                 </v-col>
               </v-row>
