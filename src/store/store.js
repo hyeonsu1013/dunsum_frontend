@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
     state : {
       isLogin : false,
+      isSearch : false,
       // servers : [],
     },
     mutations : {
@@ -14,6 +15,9 @@ export const store = new Vuex.Store({
       },
       SET_SRVR(state, value) {
         state.servers = value || [];
-      }
+      },
+      SET_SEARCH(state, value) {
+        state.isSearch = value || !state.isSearch;
+      },
     }
 });

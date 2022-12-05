@@ -237,7 +237,7 @@ export default {
     ...mapState(['isLogin']),
   },
   methods: {
-    ...mapMutations(['SET_SRVR']),
+    ...mapMutations(['SET_SRVR', 'SET_SEARCH']),
     serverBtn(index) {
       this.serverIdx = index;
       this.toggleDropdown.server = false;
@@ -275,7 +275,7 @@ export default {
     },
     search(type) {
       // TODO alert
-      if(cUtils.isEmpty(this.serachTextItem || this.serachTextChar)){
+      if(cUtils.isEmpty(this.serachTextItem || this.serachTextChar) || (this.serachTextItem || this.serachTextChar).length < 2){
         this.showAlert('2자 이상 입력해주세요.');
         return;
       }
@@ -284,6 +284,7 @@ export default {
         type = cUtils.isEmpty(this.serachTextItem) ? 'c' : 'i';
       }
 
+      this.SET_SEARCH();
       this.$router.push({
           path: `/search/${type}list`,
           query : {'target' : this.serachTextItem || this.serachTextChar}

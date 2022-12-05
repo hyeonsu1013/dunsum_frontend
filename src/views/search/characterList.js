@@ -1,6 +1,7 @@
 import dnfInnrApi from '@/api/dnf/dnf';
 import dnfOtsdApi from '@/api/outside/dnf';
 import cUtils from '@/utils/commonUtils';
+import { mapState } from 'vuex';
 
 const DunsumLayer = () => import(/* webpackChunkName: "LayerPopup" */ '@/components/common/DunsumLayer.vue');
 
@@ -36,7 +37,15 @@ export default {
         menu2: false,
       }
   },
-  watch: {},
+  computed : {
+    ...mapState(['isSearch']),
+  },
+  watch: {
+    isSearch() {
+      this.target = this.$route.query?.target;
+      this.selCharacters();
+    },
+  },
 	methods: {
     allOpen() {
       this.panel = [...Array(this.charList.length).keys()].map((k, i) => i);
