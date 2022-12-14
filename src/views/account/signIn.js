@@ -1,11 +1,17 @@
 export default {
-  name: 'SignIn',
-  data(){
-      return{
+  name: 'SignUp',
+  data() {
+      return {
+        loading: false,
+        userEmail: '',
+        password: '',
       }
   },
-  created() {
-  },
   methods: {
+    login() {
+      console.log('login');
+    }
+  },
+  created() {
   },
 }

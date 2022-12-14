@@ -1,6 +1,6 @@
 <template>
-    <footer>
-        <div class="footer-content">
+    <footer class="cont_center">
+        <div class="footer-content cont_center">
             <p>
                 developed by <a :href="url_front" target="_blank">Javayaji_Front</a> / <a :href="url_back" target="_blank">Javayaji_Back</a> 2022
             </p>

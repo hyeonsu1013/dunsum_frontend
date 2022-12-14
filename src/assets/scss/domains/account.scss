@@ -56,3 +56,26 @@
   margin-left: 3rem;
   line-height: 3rem;
 }
+
+/**
+ * 로그인
+ */
+
+ .account_signin {
+    height: 100%;
+    background: linear-gradient($color-white, $color-main-light3);
+    .account_layout {
+      position: relative;
+      height: 100% !important;
+      .account_login {
+        .account_btn {
+          font-size: 21px;
+          font-weight: bold;
+          background-color : $color-main !important;
+          border-color : $color-main !important;
+        }
+      }
+    }
+ }
+
+

@@ -177,11 +177,12 @@
 .header_appbar {
   position: fixed !important;
   top: 0 !important;
-  background-color: #ffecd0 !important;
+  background-color: $color-main-part !important;
   width: 100%;
   padding-left: 311px;
   z-index: 100;
   transition: all .2s ease;
+  border-bottom: 5px solid $color-main-part2 !important;
 
   .contents {
     height: 100%;

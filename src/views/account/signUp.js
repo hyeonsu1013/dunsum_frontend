@@ -1,5 +1,5 @@
 export default {
-  name: 'SignUp',
+  name: 'SignIn',
   data(){
       return{
       }

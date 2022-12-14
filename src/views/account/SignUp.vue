@@ -1,10 +1,10 @@
 <template>
    <div>
-        <h1>SignUp</h1>
+        <h1>SignIn</h1>
     </div>
 </template>
 
 <script>
-import SignUp from "@/views/account/signUp";
-export default SignUp;
+import SignIn from "@/views/account/signIn";
+export default SignIn;
 </script>

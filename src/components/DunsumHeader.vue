@@ -237,7 +237,7 @@ export default {
     ...mapState(['isLogin']),
   },
   methods: {
-    ...mapMutations(['SET_SRVR', 'SET_SEARCH']),
+    ...mapMutations(['SET_SEARCH']),
     serverBtn(index) {
       this.serverIdx = index;
       this.toggleDropdown.server = false;
@@ -260,7 +260,6 @@ export default {
         if(res.status == 200){
           _this.servers = res.data.rows;
           if(_this.servers != null && _this.servers.length > 0){
-             _this.SET_SRVR(_this.servers);
             _this.currServer = _this.servers[0];
           }
         }

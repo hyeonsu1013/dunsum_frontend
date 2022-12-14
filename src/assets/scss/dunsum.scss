@@ -3,10 +3,9 @@
 */
 
 .main-content{
-  padding: 80px 0 0 311px;
-  margin: 30px 15px 15px 15px;
-  min-height: 600px;
-  /* background-color: #f1fdf3; */
+  padding: 50px 0 0 296px;
+  margin: 30px 0 0 0;
+  height: calc(100% - 80px);
 }
 @media only screen and (max-width: $size-width-default-max) {
     .main-content{
@@ -101,5 +100,5 @@
 .pr25 { padding-right: 25px !important; }
 .pr30 { padding-right: 30px !important; }
 
-.bg_orange_light { background-color: $color-orange-light !important;}
-.bg_gray_light { background-color: $color-gray-light !important;}
+.bg_orange_light { background-color: $color-orange-light5 !important;}
+.bg_gray_light { background-color: $color-gray-light5 !important;}
