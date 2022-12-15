@@ -12,67 +12,82 @@
   }
 }
 
-.account_main_container {
-  height: 23rem;
-}
-
-.account_main_title {
-  transition: all 0.5s;
-  -webkit-text-stroke: 4px #131313;
-  font-variation-settings: "wght" 900, "ital" 1;
-  font-size: 12rem;
-  margin: 0 30rem;
-  text-align: center;
-  color: transparent;
-  font-family: "Meta", sans-serif;
-  text-shadow: 10px 10px 0px #bcf9ff, 15px 15px 0px #e0fa98, 20px 20px 0px #fdd282, 25px 25px 0px #f40468, 45px 45px 10px #c0a7ff;
-  cursor: pointer;
-
-  &:hover {
-    font-variation-settings: "wght" 100, "ital" 0;
-    text-shadow: none;
+/**
+ * 게스트 로그인
+ */
+.account_guest {
+  height: 100%;
+  background: linear-gradient($color-white, $color-main-light3);
+  .account_main_title {
+    transition: all 0.5s;
+    -webkit-text-stroke: 4px #131313;
+    font-variation-settings: "wght" 900, "ital" 1;
+    font-size: 12rem;
+    margin: 0 30rem;
+    text-align: center;
+    color: transparent;
+    font-family: "Meta", sans-serif;
+    text-shadow: 10px 10px 0px #bcf9ff, 15px 15px 0px #e0fa98, 20px 20px 0px #fdd282, 25px 25px 0px #f40468, 45px 45px 10px #c0a7ff;
+    cursor: pointer;
+  
+    &:hover {
+      font-variation-settings: "wght" 100, "ital" 0;
+      text-shadow: none;
+    }
+  }
+  
+  .account_main_sub_title {
+    font-size: 1.3rem;
+    color: #c0a7ff;
+    text-align: center;
+    font-family: "Meta", sans-serif;
+    animation: blink-effect 1s step-end infinite;
+  }
+  
+  .account_sub_container {
+    height: 22rem;
+  }
+  
+  .account_sub_title {
+    font-size: 1.4rem;
+    color: #f861a0;
+  }
+  
+  .account_sub_drop {
+    font-size: 1.1rem;
+    margin-left: 3rem;
+    line-height: 3rem;
   }
 }
 
-.account_main_sub_title {
-  font-size: 1.3rem;
-  color: #c0a7ff;
-  text-align: center;
-  font-family: "Meta", sans-serif;
-  animation: blink-effect 1s step-end infinite;
-}
-
-.account_sub_container {
-  height: 22rem;
-}
-
-.account_sub_title {
-  font-size: 1.4rem;
-  color: #f861a0;
-}
-
-.account_sub_drop {
-  font-size: 1.1rem;
-  margin-left: 3rem;
-  line-height: 3rem;
-}
-
 /**
- * 로그인
+ * 로그인 / 회원가입
  */
 
- .account_signin {
+ .account_sign {
     height: 100%;
     background: linear-gradient($color-white, $color-main-light3);
     .account_layout {
       position: relative;
       height: 100% !important;
       .account_login {
+        .account_bot {
+          width: 100%;
+          display: -webkit-flex;
+			    display: flex;
+        }
         .account_btn {
+          min-width: 0% !important;
           font-size: 21px;
           font-weight: bold;
+          color : $color-main-part2;
           background-color : $color-main !important;
           border-color : $color-main !important;
+          &.init {
+            background-color : $color-white !important;
+            outline : 3px $color-brown-light5 solid !important;
+            color : $color-black;
+          }
         }
       }
     }

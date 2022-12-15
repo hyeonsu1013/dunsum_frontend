@@ -3,18 +3,18 @@ footer {
   height: 50px !important;
   width: 100%;
   color: $color-white;
-  background-color: $color-main-part2;
+  background-color: $color-main-part2-light1;
   text-align: center;
   border-top: 5px solid $color-main-darken4;
 
   .footer-content {
     margin-left: 337px;
     >p {
-      font-size: 18px;
+      font-size: 20px;
       >a {
-        color: $color-main-light2;
+        color: $color-white;
         font-weight: bold;
-        text-shadow: -1px 0 $color-black, 0 1px $color-black, 1px 0 $color-black, 0 -1px $color-black;
+        text-shadow: -1px 0 $color-main-darken3, 0 1px $color-main-darken3, 1px 0 $color-main-darken3, 0 -1px $color-main-darken3;
       }
     }
   }

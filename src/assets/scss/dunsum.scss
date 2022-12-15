@@ -102,3 +102,18 @@
 
 .bg_orange_light { background-color: $color-orange-light5 !important;}
 .bg_gray_light { background-color: $color-gray-light5 !important;}
+
+.center {
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.between {
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+.around {
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+}
