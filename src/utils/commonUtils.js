@@ -1,8 +1,205 @@
 export default {
   // 파라미터의 타입 확인(소문자로 리턴)
   getType(trgt) {
+    if(trgt === null || trgt === undefined) return '';
     return Object.prototype.toString.call(trgt).slice(8, -1).toLowerCase();
   },
+
+  //빈값 체크
+  isEmpty(str) {
+    if(this.getType(str) === 'string') {
+      return str === null || str === undefined || "" === str;
+    }
+    else {
+      return (Object.keys(obj).length === 0 && obj.constructor === Object) || (obj.length === 0 && obj.constructor === Array);
+    }
+  },
+
+  //String 빈값 체크
+  isNotEmpty(str) {
+    return !this.isEmpty(str);
+  },
+
+  // 길이 체크
+  chkLength(str, start, end, startCont = true, endCont = true) {
+    if(this.getType(str) != 'string') return false;
+
+    let check = true;
+    if(startCont){
+      check &&= str.length >= start;
+    } else {
+      check &&= str.length > start;
+    }
+
+    if(check){
+      if(endCont){
+        check &&= str.length <= end;
+      } else {
+        check &&= str.length < end;
+      }
+    }
+
+    return check;
+  },
+
+  // 공백포함 여부 체크
+  chkBlack(str) {
+    if(this.getType(str) != 'string') return false;
+    else if(str.length == 0) return true;
+
+    return str.search(/\s/) != -1;
+  },
+
+  // 숫자포함 여부 체크
+  chkNum(str) {
+    if(this.getType(str) != 'string') return false;
+    else if(str.length == 0) return true;
+
+    return str.search(/[0-9]/g) >= 0;
+  },
+
+  // 영어소문자 포함 여부 체크
+  chkEng(str) {
+    if(this.getType(str) != 'string') return false;
+    else if(str.length == 0) return true;
+
+    return str.search(/[a-z]/g) >= 0;
+  },
+
+  // 영어대문자 포함 여부 체크
+  chkEngBig(str) {
+    if(this.getType(str) != 'string') return false;
+    else if(str.length == 0) return true;
+
+    return str.search(/[A-Z]/g) >= 0;
+  },
+
+  // 특수문자 포함 여부 체크
+  chkSpec(str) {
+    if(this.getType(str) != 'string') return false;
+    else if(str.length == 0) return true;
+
+    return str.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi) >= 0;
+  },
+
+  /**
+   * 정규식을 사용하여 문자를 치환한다. - args[0] : 치환할 문자, args[1] : 치환할 패턴
+   * @param {String} context
+   * @param {String, RegExp} pattern
+   * @returns {String}
+   */
+  remove(context, pattern) {
+    if (this.isEmpty(context)) {
+      return "";
+    } else {
+      if (pattern != null) {
+        return context.replace(this.meta(pattern), "");
+      } else {
+        return context;
+      }
+    }
+  },
+  
+  /**
+   * 숫자로 구성되어 있는지 확인 - args[0] : 숫자, args[1] : 허용할 문자셋
+   * @param {String} value
+   * @param {String} permitChar
+   * @returns {Boolean}
+   */
+  isNum(value, permitChar) {
+    if(this.getType(value) != 'string') return false;
+    else if(value.length == 0) return true;
+
+    return (/^[0-9]+$/).test(this.remove(value, permitChar)) ? true : false;
+  },
+
+  /**
+   * 영어만 허용 - args[0] : 문자, args[1] : 추가 허용할 문자들
+   * @param {String} value
+   * @param {String} permitChar
+   * @returns {Boolean}
+   */
+  isEng(value, permitChar) {
+    if(this.getType(value) != 'string') return false;
+    else if(value.length == 0) return true;
+
+    return (/^[a-zA-Z]+$/).test(this.remove(value, permitChar)) ? true : false;
+  },
+
+  /**
+   * 숫자와 영어만 허용 - args[0] : 문자 또는 숫자, args[1] : 추가 허용할 문자들
+   * @param {String} value
+   * @param {String} permitChar
+   * @returns {Boolean}
+   */
+  isEngNum(value, permitChar) {
+    if(this.getType(value) != 'string') return false;
+    else if(value.length == 0) return true;
+
+    return (/^[0-9a-zA-Z]+$/).test(this.remove(value, permitChar)) ? true : false;
+  },
+  /**
+   * 숫자와 영어만 허용 - args[0] : 문자 또는 숫자, args[1] : 추가 허용할 문자들
+   * @param {String} value
+   * @param {String} permitChar
+   * @returns {Boolean}
+   */
+  isNumEng(value, permitChar) {
+    if(this.getType(value) != 'string') return false;
+    else if(value.length == 0) return true;
+
+    return this.isEngNum(value, permitChar);
+  },
+
+  /**
+   * 아이디 체크: 영어와 숫자만 체크 첫글자는 영어로 시작 - args[0] : 아이디 값, args[1] : 추가 허용할 문자들
+   * @param {String} userId
+   * @param {String} permitChar
+   * @returns {Boolean}
+   */
+  isLoginId(userId, permitChar) {
+    if(this.getType(userId) != 'string') return false;
+    else if(userId.length == 0) return true;
+
+    return (/^[a-zA-Z]{1}[0-9a-zA-Z]+$/).test(this.remove(userId, permitChar)) ? true : false;
+  },
+
+  /**
+   * 이메일의 유효성을 체크
+   * @param {String} mail
+   * @returns {Boolean}
+   */
+  isEmail(mail) {
+    if(this.getType(mail) != 'string') return false;
+    else if(mail.length == 0) return true;
+
+    return /^((([a-z]|\d|[!#$%&'*+\-/=?^_`{|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#$%&'*+\-/=?^_`{|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20)*)?(\x20)+)?(([\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20)*)?(\x20)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i.test(mail);
+  },
+
+  /**
+   * 비밀번호의 유효성을 체크
+   * @param {String} str
+   * @returns {Boolean}
+   */
+  isPassword(str) {
+    if(this.getType(str) != 'string') return false;
+    else if(str.length == 0) return true;
+
+    return !this.chkBlack(str) && this.chkNum(str) && this.chkEng(str) && this.chkEngBig(str) && this.chkSpec(str);
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   /**
    * 문자열의 byte 길이 반환
@@ -27,23 +224,7 @@ export default {
     return (value.trim().replace(/[^0-9]/g, ""));
   },
 
-  /**
-   * 정규식을 사용하여 문자를 치환한다. - args[0] : 치환할 문자, args[1] : 치환할 패턴
-   * @param {String} context
-   * @param {String, RegExp} pattern
-   * @returns {String}
-   */
-  remove(context, pattern) {
-    if (context == null) {
-      return "";
-    } else {
-      if (pattern != null) {
-        return context.replace(this.meta(pattern), "");
-      } else {
-        return context;
-      }
-    }
-  },
+
 
   /**
    * 정규식에 쓰이는 특수문자를 찾아서 이스케이프 한다.
@@ -66,45 +247,8 @@ export default {
     return result;
   },
 
-  /**
-   * 숫자로 구성되어 있는지 확인 - args[0] : 숫자, args[1] : 허용할 문자셋
-   * @param {String} value
-   * @param {String} permitChar
-   * @returns {Boolean}
-   */
-  isNum(value, permitChar) {
-    return (/^[0-9]+$/).test(this.remove(value, permitChar)) ? true : false;
-  },
 
-  /**
-   * 영어만 허용 - args[0] : 문자, args[1] : 추가 허용할 문자들
-   * @param {String} value
-   * @param {String} permitChar
-   * @returns {Boolean}
-   */
-  isEng(value, permitChar) {
-    return (/^[a-zA-Z]+$/).test(this.remove(value, permitChar)) ? true : false;
-  },
 
-  /**
-   * 숫자와 영어만 허용 - args[0] : 문자 또는 숫자, args[1] : 추가 허용할 문자들
-   * @param {String} value
-   * @param {String} permitChar
-   * @returns {Boolean}
-   */
-  isEngNum(value, permitChar) {
-    return (/^[0-9a-zA-Z]+$/).test(this.remove(value, permitChar)) ? true : false;
-  },
-
-  /**
-   * 숫자와 영어만 허용 - args[0] : 문자 또는 숫자, args[1] : 추가 허용할 문자들
-   * @param {String} value
-   * @param {String} permitChar
-   * @returns {Boolean}
-   */
-  isNumEng(value, permitChar) {
-    return this.isEngNum(value, permitChar);
-  },
 
   /**
    * 실수 체크
@@ -115,15 +259,7 @@ export default {
     return (/^[0-9]+(.[0-9]+)?$/).test(value) ? true : false;
   },
 
-  /**
-   * 아이디 체크: 영어와 숫자만 체크 첫글자는 영어로 시작 - args[0] : 아이디 값, args[1] : 추가 허용할 문자들
-   * @param {String} userId
-   * @param {String} permitChar
-   * @returns {Boolean}
-   */
-  isLoginId(userId, permitChar) {
-    return (/^[a-zA-Z]{1}[0-9a-zA-Z]+$/).test(this.remove(userId, permitChar)) ? true : false;
-  },
+
 
   /**
    * 한글 체크 - args[0] : 한글, args[1] : 추가 허용할 문자들
@@ -199,48 +335,6 @@ export default {
   },
 
   /**
-   * 외국인 등록번호 체크 - args[0] : 등록번호, args[1] : 등록번호 구분자
-   * 000000-0000000
-   * @param {String} idttNo
-   * @param {String} separator
-   * @returns {Boolean}
-   */
-  isForeign(idttNo, separator) {
-    const sep = separator ? separator : "";
-    const jumin = new RegExp(`/^([0-9]{2}[01]{1}[0-9]{1}[0123]{1}[0-9]{1})${sep}[5678]{1}[0-9]{1}[012468]{1}[0-9]{3}[0-9]{1}$`); // 2020.4.29 이후 - 등록기관 뒤 1자리 1허용으로 변경
-    let juminNo = "";
-    if (idttNo == null) {
-      return false;
-    } else {
-      juminNo = idttNo.toString().replace(jumin, "$1$2");
-    }
-    // 생년월일 체크
-    let birthYY = '5,6'.indexOf(juminNo.charAt(6)) >= 0 ? "19" : "20";
-    birthYY += juminNo.substr(0, 2);
-    const birthMM = juminNo.substr(2, 2) - 1;
-    const birthDD = juminNo.substr(4, 2);
-    const birthday = new Date(birthYY, birthMM, birthDD);
-    if (birthday.getYear() % 100 != juminNo.substr(0, 2) || birthday.getMonth() != birthMM || birthday.getDate() != birthDD) {
-      return false;
-    }
-    if (juminNo.charAt(8) == 1) return true;// 2020.4.29 이후 - 등록기관 뒤 1자리가 1이면 검증정상종료
-    if ((parseInt(juminNo.charAt(7), 10) * 10 + parseInt(juminNo.charAt(8), 10)) % 2 != 0) {
-      return false;
-    }
-
-    // TODO 체크로직 검증 필요
-    // return true;
-
-    let sum = 0;
-    const num = [2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5];
-    const last = parseInt(juminNo.charAt(12), 10);
-    for (let i = 0; i < 12; i++) {
-      sum += parseInt(juminNo.charAt(i), 10) * num[i];
-    }
-    return (((11 - sum % 11) % 10) + 2 == last) ? true : false;
-  },
-
-  /**
    * 주민번호 앞6자리 유효성 체크
    * (6자리 날짜 체크)
    * @param {String} date
@@ -276,22 +370,7 @@ export default {
     }
   },
   
-  /**
-   * 이메일의 유효성을 체크
-   * @param {String} mail
-   * @returns {Boolean}
-   */
-  isEmail(mail) {
-    // 이전 정규식의 경우 에러가 발생하고 있어 대체
-    // return /^((([a-z]|\d|[!#$%&'*+\-/=?^_`{|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#$%&'*+\-/=?^_`{|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i.test(mail);
-    // eslint error : \x09, \x0d, \x0a, \x01, \x08, \x0b, \x0c, \x0e, \x1f
-    if (mail.length > 0) {
-      // return /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i.test(mail);
-      return /^((([a-z]|\d|[!#$%&'*+\-/=?^_`{|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#$%&'*+\-/=?^_`{|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20)*)?(\x20)+)?(([\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20)*)?(\x20)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i.test(mail);
-    } else {
-      return true;
-    }
-  },
+
 
   /**
    * 연락처(전화번호 또는 핸드폰번호) 체크
@@ -329,30 +408,7 @@ export default {
     return /01[016789]$/.test(mobileNo);
   },
 
-  //Object 널체크
-  isEmptyObject(obj) {
-    if (this.isObject(obj)) {
-      return (Object.keys(obj).length === 0 && obj.constructor === Object) ||
-        (obj.length === 0 && obj.constructor === Array);
-    }
-  },
 
-  //Object 널체크
-  isNotEmptyObject(obj) {
-    if (this.isObject(obj)) {
-      return !this.isEmptyObject(obj);
-    }
-  },
-
-  //String 빈값 체크
-  isNotEmpty(str) {
-    return !this.isEmpty(str);
-  },
-
-  //String 빈값 체크
-  isEmpty(str) {
-    return str === null || str === undefined || "" === str;
-  },
 
   //Object 체크
   isObject(obj) {
