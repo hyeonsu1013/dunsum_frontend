@@ -1,5 +1,5 @@
 <template>
-    <div class="account_signin">
+    <div class="account_sign">
         <v-layout class="account_layout" align-center justify-center>
             <v-flex class="account_login" xs12 sm8 md6 lg6>
                 <v-card class="elevation-1 pa-3">
@@ -8,8 +8,8 @@
                         <img src="@/assets/images/vue/logo.svg" alt="Vue Material Admin" width="180" height="180">
                         </div>
                         <v-form>
-                        <v-text-field name="login" label="Login ID" type="text" v-model="loginId"/>
-                        <v-text-field name="password" label="Password" id="password" v-model="password"/>
+                        <v-text-field name="login" label="Login ID" type="text" v-model="loginId" clearable/>
+                        <v-text-field name="password" label="Password" type="password" id="password" clearable v-model="password"/>
                         </v-form>
                     </v-card-text>
                     <v-card-actions>
@@ -23,6 +23,6 @@
 </template>
 
 <script>
-import SignUp from "@/views/account/signUp";
-export default SignUp;
+import SignIn from "@/views/account/signIn";
+export default SignIn;
 </script>
